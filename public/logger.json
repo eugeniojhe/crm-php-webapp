@@ -1,0 +1,1 @@
+{"data":"2024-04-17 03:34:23","message":"INSERT INTO Products (\n                        id, descricao, preco_custo, preco_venda, codigo_barras, data_cadastro, origem\n                        ) VALUES (\n                            '65' , 'Ar condicionado samsung 54 pl 2 12 ' ,'1000.00' ,'2000' ,'xxxxxyy' ,'2024-04-17' ,'Brasil')"}
