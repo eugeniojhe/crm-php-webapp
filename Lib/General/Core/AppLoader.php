@@ -11,9 +11,9 @@ class AppLoader
 {
     protected $directories;
 
-    public function addDirecotory($direcotory)
+    public function addDirectory($directory)
     {
-        $this->directories[] = $direcotory;
+        $this->directories[] = $directory;
     }
 
    public function register()
@@ -23,13 +23,14 @@ class AppLoader
 
    public function loadCLass($class):bool {
         $folders = $this->directories;
-
+        $class = substr($class,strrpos($class,'\\',0) + 1 );
         foreach ($folders as $folder) {
             if (file_exists("{$folder}/{$class}.php")) {
                 require_once "{$folder}/{$class}.php";
                 return true;
             } else {
                 if (file_exists($folder)) {
+
                     foreach(new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($folder),
                              \RecursiveIteratorIterator::SELF_FIRST) as $entry) {
                         if (is_dir($entry)) {

@@ -2,22 +2,19 @@
 
 namespace General\Database;
 use Model\Produto;
-//
-//use Couchbase\TermRangeSearchQuery;
-//use PHPMailer\PHPMailer\Exception;
 
 class Repository
 {
-
     private $activeRecord;
     public function __construct($class)
     {
-        $this->activeRecord = get_class($class);
+       $this->activeRecord = get_class($class);
 
     }
     public function load(Criteria $criteria)
     {
         $sql = "SELECT * FROM ".$this->activeRecord::TABLENAME;
+
         Transaction::log($sql);
         $results = [];
 
@@ -46,8 +43,8 @@ class Repository
             throw new Exception('Não existe conexão com o BD');
         }
         Transaction::log($sql);
-       $result = $conn->query($sql);
-     //  var_dump($result);
+        $result = $conn->query($sql);
+
         if ($result) {
             while ($row = $result->fetchObject( $this->activeRecord )) {
                 $results[] = $row;

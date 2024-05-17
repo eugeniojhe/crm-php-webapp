@@ -40,7 +40,7 @@ class ClassLoader
         //the current namespace prefix - The current class being referencide
 
         $prefix = $class;
-        $workingDir = (getenv('WORKING_DIR')) ? getenv('WORKING_DIR') .'/' : '';
+        $workingDir = trim((getenv('WORKING_DIR')) ? getenv('WORKING_DIR') .'/' : '');
 
         while (false !== $pos = strrpos($prefix, '\\')) {
             $prefix = substr($class, 0,$pos + 1);
@@ -52,7 +52,6 @@ class ClassLoader
             }
 
             $prefix = rtrim($prefix, '\\');
-
         }
 
         return false;
@@ -69,7 +68,6 @@ class ClassLoader
                 $base_dir .
                 str_replace('\\', '/', $class).
                '.php';
-            var_dump($file);
             if ($this->fileRequired($file)) {
                 return $file;
             }

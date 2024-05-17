@@ -18,6 +18,8 @@ class Repository
     public function load(Criteria $criteria)
     {
         $sql = "SELECT * FROM ".$this->activeRecord::TABLENAME;
+        var_dump($sql);
+        die();
         Transaction::log($sql);
         $results = [];
 
@@ -48,11 +50,12 @@ class Repository
         Transaction::log($sql);
        $result = $conn->query($sql);
      //  var_dump($result);
-        if ($result) {
-            while ($row = $result->fetchObject( $this->activeRecord )) {
-                $results[] = $row;
-            }
-        }
+//        if ($result) {
+//            while ($row = $result->fetchObject( $this->activeRecord )) {
+//                $results[] = $row;
+//            }
+//        }
+        return $result->fetchAll();
         return $results;
     }
 

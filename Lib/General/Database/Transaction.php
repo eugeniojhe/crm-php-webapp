@@ -2,6 +2,7 @@
 
 namespace General\Database;
 
+
 class Transaction
 {
    private static $conn;

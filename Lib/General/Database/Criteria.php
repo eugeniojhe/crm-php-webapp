@@ -58,9 +58,9 @@ class Criteria
             }
 
             $result = trim($result);
-
+            return "({$result})";
         }
-        return "({$result})";
+        return $result;
     }
 
     public function setProperty($property, $value)
