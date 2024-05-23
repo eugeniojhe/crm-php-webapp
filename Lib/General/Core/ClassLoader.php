@@ -38,7 +38,6 @@ class ClassLoader
     public function loadClass($class)
     {
         //the current namespace prefix - The current class being referencide
-
         $prefix = $class;
         $workingDir = trim((getenv('WORKING_DIR')) ? getenv('WORKING_DIR') .'/' : '');
 

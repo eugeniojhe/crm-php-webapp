@@ -1,0 +1,437 @@
+Projeto em php puro - Dockerizado 
+
+-Criando o pagecontrol para pessoa, e realizando varios teste. 
+-Neste ponto a aplicacao esta dirty, a medida que for evoluindo, o
+codigo ficara clean.  
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# No ramo master
+# Your branch is up to date with 'origin/master'.
+#
+# Mudanças a serem submetidas:
+#	new file:   App/Control/PessoaControl.php
+#	new file:   App/Model/Pessoa.php
+#	modified:   App/modulo5/classes/api/Repository.php
+#	modified:   Lib/General/Core/AppLoader.php
+#	modified:   Lib/General/Core/ClassLoader.php
+#	modified:   Lib/General/Database/Criteria.php
+#	modified:   Lib/General/Database/Repository.php
+#	modified:   Lib/General/Database/Transaction.php
+#	new file:   public/Pessoa.php
+#	modified:   public/index.php
+#
+# ------------------------ >8 ------------------------
+# Do not modify or remove the line above.
+# Everything below it will be ignored.
+diff --git a/App/Control/PessoaControl.php b/App/Control/PessoaControl.php
+new file mode 100644
+index 0000000..4106b28
+--- /dev/null
++++ b/App/Control/PessoaControl.php
+@@ -0,0 +1,38 @@
++<?php
++
++namespace Control;
++
++use General\Database\Transaction;
++use General\Database\Repository;
++use General\Database\Criteria;
++use Model\Pessoa;
++class PessoaControl
++{
++    public function list()
++    {
++        $pessoas = array();
++        try {
++            Transaction::Open();
++
++            $criteria = new Criteria();
++            $criteria->add('id', '=', 1);
++            $criteria->setProperty('order', 'id');
++            $repository = new Repository(new Pessoa());
++            $pessoas =  $repository->load($criteria);
++
++            Transaction::Close();
++            return $pessoas;
++
++        } catch (\Exception $e) {
++            print $e->getMessage();
++        }
++        return $pessoas;
++    }
++
++    public function show($url)
++    {
++        if (isset($url['method']) && $url['method'] == "listar") {
++            return $this->list();
++        }
++    }
++}
+\ No newline at end of file
+diff --git a/App/Model/Pessoa.php b/App/Model/Pessoa.php
+new file mode 100644
+index 0000000..ae750aa
+--- /dev/null
++++ b/App/Model/Pessoa.php
+@@ -0,0 +1,8 @@
++<?php
++
++namespace Model;
++
++class Pessoa
++{
++    const TABLENAME = "pessoas";
++}
+\ No newline at end of file
+diff --git a/App/modulo5/classes/api/Repository.php b/App/modulo5/classes/api/Repository.php
+index 9a63cec..a719897 100644
+--- a/App/modulo5/classes/api/Repository.php
++++ b/App/modulo5/classes/api/Repository.php
+@@ -18,6 +18,8 @@ class Repository
+     public function load(Criteria $criteria)
+     {
+         $sql = "SELECT * FROM ".$this->activeRecord::TABLENAME;
++        var_dump($sql);
++        die();
+         Transaction::log($sql);
+         $results = [];
+ 
+@@ -48,11 +50,12 @@ class Repository
+         Transaction::log($sql);
+        $result = $conn->query($sql);
+      //  var_dump($result);
+-        if ($result) {
+-            while ($row = $result->fetchObject( $this->activeRecord )) {
+-                $results[] = $row;
+-            }
+-        }
++//        if ($result) {
++//            while ($row = $result->fetchObject( $this->activeRecord )) {
++//                $results[] = $row;
++//            }
++//        }
++        return $result->fetchAll();
+         return $results;
+     }
+ 
+diff --git a/Lib/General/Core/AppLoader.php b/Lib/General/Core/AppLoader.php
+index 139e2a3..bafbe9f 100644
+--- a/Lib/General/Core/AppLoader.php
++++ b/Lib/General/Core/AppLoader.php
+@@ -11,9 +11,9 @@ class AppLoader
+ {
+     protected $directories;
+ 
+-    public function addDirecotory($direcotory)
++    public function addDirectory($directory)
+     {
+-        $this->directories[] = $direcotory;
++        $this->directories[] = $directory;
+     }
+ 
+    public function register()
+@@ -23,13 +23,14 @@ class AppLoader
+ 
+    public function loadCLass($class):bool {
+         $folders = $this->directories;
+-
++        $class = substr($class,strrpos($class,'\\',0) + 1 );
+         foreach ($folders as $folder) {
+             if (file_exists("{$folder}/{$class}.php")) {
+                 require_once "{$folder}/{$class}.php";
+                 return true;
+             } else {
+                 if (file_exists($folder)) {
++
+                     foreach(new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($folder),
+                              \RecursiveIteratorIterator::SELF_FIRST) as $entry) {
+                         if (is_dir($entry)) {
+diff --git a/Lib/General/Core/ClassLoader.php b/Lib/General/Core/ClassLoader.php
+index 2111db6..2e099eb 100644
+--- a/Lib/General/Core/ClassLoader.php
++++ b/Lib/General/Core/ClassLoader.php
+@@ -40,7 +40,7 @@ class ClassLoader
+         //the current namespace prefix - The current class being referencide
+ 
+         $prefix = $class;
+-        $workingDir = (getenv('WORKING_DIR')) ? getenv('WORKING_DIR') .'/' : '';
++        $workingDir = trim((getenv('WORKING_DIR')) ? getenv('WORKING_DIR') .'/' : '');
+ 
+         while (false !== $pos = strrpos($prefix, '\\')) {
+             $prefix = substr($class, 0,$pos + 1);
+@@ -52,7 +52,6 @@ class ClassLoader
+             }
+ 
+             $prefix = rtrim($prefix, '\\');
+-
+         }
+ 
+         return false;
+@@ -69,7 +68,6 @@ class ClassLoader
+                 $base_dir .
+                 str_replace('\\', '/', $class).
+                '.php';
+-            var_dump($file);
+             if ($this->fileRequired($file)) {
+                 return $file;
+             }
+diff --git a/Lib/General/Database/Criteria.php b/Lib/General/Database/Criteria.php
+index 072c19f..b2d2f5d 100644
+--- a/Lib/General/Database/Criteria.php
++++ b/Lib/General/Database/Criteria.php
+@@ -58,9 +58,9 @@ class Criteria
+             }
+ 
+             $result = trim($result);
+-
++            return "({$result})";
+         }
+-        return "({$result})";
++        return $result;
+     }
+ 
+     public function setProperty($property, $value)
+diff --git a/Lib/General/Database/Repository.php b/Lib/General/Database/Repository.php
+index 242548f..a509914 100644
+--- a/Lib/General/Database/Repository.php
++++ b/Lib/General/Database/Repository.php
+@@ -2,22 +2,19 @@
+ 
+ namespace General\Database;
+ use Model\Produto;
+-//
+-//use Couchbase\TermRangeSearchQuery;
+-//use PHPMailer\PHPMailer\Exception;
+ 
+ class Repository
+ {
+-
+     private $activeRecord;
+     public function __construct($class)
+     {
+-        $this->activeRecord = get_class($class);
++       $this->activeRecord = get_class($class);
+ 
+     }
+     public function load(Criteria $criteria)
+     {
+         $sql = "SELECT * FROM ".$this->activeRecord::TABLENAME;
++
+         Transaction::log($sql);
+         $results = [];
+ 
+@@ -46,8 +43,8 @@ class Repository
+             throw new Exception('Não existe conexão com o BD');
+         }
+         Transaction::log($sql);
+-       $result = $conn->query($sql);
+-     //  var_dump($result);
++        $result = $conn->query($sql);
++
+         if ($result) {
+             while ($row = $result->fetchObject( $this->activeRecord )) {
+                 $results[] = $row;
+diff --git a/Lib/General/Database/Transaction.php b/Lib/General/Database/Transaction.php
+index 9ba741d..126979f 100644
+--- a/Lib/General/Database/Transaction.php
++++ b/Lib/General/Database/Transaction.php
+@@ -2,6 +2,7 @@
+ 
+ namespace General\Database;
+ 
++
+ class Transaction
+ {
+    private static $conn;
+diff --git a/public/Pessoa.php b/public/Pessoa.php
+new file mode 100644
+index 0000000..5adf2e7
+--- /dev/null
++++ b/public/Pessoa.php
+@@ -0,0 +1,4 @@
++<?php
++
++   $pessoa = new PessoaControl();
++   $pessa->show( $_GET);
+diff --git a/public/index.php b/public/index.php
+index 76becd7..e37eeb8 100644
+--- a/public/index.php
++++ b/public/index.php
+@@ -2,143 +2,53 @@
+ 
+        require_once "/var/www/Lib/General/Database/Connection.php";
+        require_once "/var/www/Lib/General/Core/ClassLoader.php";
++       require_once "/var/www/Lib/General/Core/AppLoader.php";
+ 
+ 
+-       use General\Database\Connection;
++$loader = new General\Core\ClassLoader();
++$loader->addNamespace('General\Database', 'Lib/General/Database');
++$loader->register();
++var_dump($_REQUEST);
++echo "<br>";
++var_dump($_GET);
++echo "<br>";
+ 
+-class ClassLoader
+-{
+-    public  $prefixes = array();
++$method = ['method'];
++var_dump(array_flip($method));
++echo "<br>";
+ 
+-    public function register()
+-    {
+-        spl_autoload_register(array($this, 'loadClass'));
+-    }
++$paramValue = array_intersect_key($_REQUEST, array_flip(['method']));
++var_dump($paramValue);
+ 
+-    public function addNamespace($prefix, $base_dir, $prepend = false)
+-    {
+-        // normalize namespace prefix
+-        $prefix = trim($prefix, '\\') . '\\';
+ 
+-        // normalize the base directory with a trailing separator
+-        $base_dir = rtrim($base_dir, DIRECTORY_SEPARATOR) . '/';
+ 
+-        // initialize the namespace prefix array
+-        if (isset($this->prefixes[$prefix]) === false) {
+-            $this->prefixes[$prefix] = array();
+-        }
++$appLoader = new General\Core\AppLoader();
++$appLoader->register();
++$appLoader->addDirectory('/var/www/App');
+ 
+-        // retain the base directory for the namespace prefix
+-        if ($prepend) {
+-            array_unshift($this->prefixes[$prefix], $base_dir);
+-        } else {
+-            array_push($this->prefixes[$prefix], $base_dir);
+-        }
+-    }
+-
+-    public function loadClass($class)
+-    {
+-        // the current namespace prefix
+-        $prefix = $class;
+-
+-        // work backwards through the namespace names of the fully-qualified
+-        // class name to find a mapped file name
+-        while (false !== $pos = strrpos($prefix, '\\')) {
+-
+-            // retain the trailing namespace separator in the prefix
+-//            var_dump($pos);
+-//            echo "<br>";
+-//            echo "====<br>";
+-            $prefix = substr($class, 0, $pos + 1);
+-
+-            // the rest is the relative class name
+-            $relative_class = substr($class, $pos + 1);
+-
+-            var_dump($prefix, $relative_class);
+-            echo "<br>";
+-
+-            // try to load a mapped file for the prefix and relative class
+-            $mapped_file = $this->loadMappedFile($prefix, $relative_class);
+-            if ($mapped_file) {
+-                return $mapped_file;
+-            }
+-
+-            // remove the trailing namespace separator for the next iteration
+-            // of strrpos()
+-            $prefix = rtrim($prefix, '\\');
+-        }
++$pessoa = new Control\PessoaControl();
+ 
+-        // never found a mapped file
+-        return false;
+-    }
++$pessoas = $pessoa->list();
+ 
+-    protected function loadMappedFile($prefix, $relative_class)
+-    {
+-        // are there any base directories for this namespace prefix?
+-        if (isset($this->prefixes[$prefix]) === false) {
+-            return false;
+-        }
++echo "<table>";
++echo "<thead>";
++echo "<tr>";
++echo "<th>Id</th>";
++echo "<th>Nome</th>";
++echo "</tr>";
++echo "</thead>";
+ 
+-        // look through base directories for this namespace prefix
+-        foreach ($this->prefixes[$prefix] as $base_dir) {
+-
+-            // replace the namespace prefix with the base directory,
+-            // replace namespace separators with directory separators
+-            // in the relative class name, append with .php
+-            $file = '/var/www/'.$base_dir
+-                . str_replace('\\', '/', $relative_class)
+-                . '.php';
+-
+-            // if the mapped file exists, require it
+-            print $file;
+-            if ($this->requireFile($file)) {
+-                // yes, we're done
+-                echo "<br><br>";
+-                var_dump($file);
+-                echo "<br><br>";
+-              //  return TRUE;
+-               return $file;
+-            }
+-        }
++echo "<body>";
+ 
+-        // never found it
+-        return false;
+-    }
+-
+-    protected function requireFile($file)
+-    {
+-        if (file_exists($file)) {
+-            echo "<br>";
+-            var_dump($file);
+-            echo "<br>";
+-           // require $file;
+-             require_once("{$file}");
+-            return true;
+-        }
+-        return false;
+-    }
++foreach($pessoas as $pessoa) {
++    echo "<tr>";
++    echo "<td>$pessoa->id</td>";
++    echo "<td>{$pessoa->name}</td>";
++    echo "</tr>";
+ }
+ 
+-
+-$string = "AJAJJ";
+-
+-//$p = strrpos($string, 'A');
+-//$substr = substr($string, $p);
+-//echo $substr."<br>";
+-//echo $p."<br>";
+-
+-
+-
+-//$loader = new ClassLoader();
+-$loader = new General\Core\ClassLoader();
+-$loader->addNamespace('General\Database', 'Lib/General/Database');
+-$loader->register();
+-
+-
+-$t = new General\Database\Criteria();
+-echo "O Objeto <br><br>";
+-var_dump($t);
+-
++echo "</body>";
++echo "</table>";
+ 
+ die();
+ 

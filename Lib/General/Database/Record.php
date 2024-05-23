@@ -1,10 +1,6 @@
 <?php
 
 namespace General\Database;
-
-
-//use PHPMailer\PHPMailer\Exception;
-
 abstract class Record
 {
     private $data;
@@ -21,6 +17,7 @@ abstract class Record
 
     public function __set($property, $value)
     {
+
         if ($value === null) {
             unset($this->data[$property]);
         } else {
@@ -64,8 +61,8 @@ abstract class Record
     public function load($id)
     {
         $sql = "SELECT * FROM {$this->getEntity()} WHERE id = ". (int) $id;
-        if ($conn = \Transaction::get()) {
-            \Transaction::log($sql);
+        if ($conn = Transaction::get()) {
+           Transaction::log($sql);
             $result =  $conn->query($sql);
             if ($result) {
                 return $result->fetchObject( get_class($this));
@@ -76,9 +73,11 @@ abstract class Record
         return false;
     }
 
-     public function find($id)
+     public static function find($id)
      {
-         return $this->load($id);
+         $class = get_called_class();
+         $acClass = new $class;
+         return $acClass->load($id);
      }
 //     public static function find($id)
 //     {
