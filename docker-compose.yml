@@ -1,0 +1,55 @@
+version: "3.3"
+services:
+  app:
+    build:
+      context: /home/eugenio/projetos/base-images/php
+      dockerfile: dockerfile
+    container_name: treina-php-container
+    working_dir: /var/www
+    volumes:
+      - ./src:/var/www
+    user: 1001:1001
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASSWORD: root
+      DB_NAME: php_treina
+      WORKING_DIR: /var/www
+      CLASS_LOADER_PATH: /var/www/Lib/General/Core/ClassLoader.php
+    depends_on:
+      - web
+      - db
+  web:
+    build:
+      context: /home/eugenio/projetos/base-images/nginx
+      dockerfile: dockerfile
+    container_name: treina-php-web-container
+    working_dir: /var/www
+    volumes:
+      - ./src:/var/www
+    ports:
+      - "80:80"
+  db:
+    image: mysql:8.0.25
+    container_name: treina-php-mysql-container
+    volumes:
+      - ./.docker/volumes/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: php_treina
+
+      DB_HOST: db
+      DB_USER: root
+      DB_PASSWORD: root
+      DB_NAME: php_treina
+
+    ports:
+      - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password
+
+
+#  nginx:
+#    image: nginx:latest
+#    container_name: nginx-container
+#    ports:
+#      - 80:80
