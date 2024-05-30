@@ -15,9 +15,6 @@ class RestServer
         $class = isset($request['class']) ? $request['class'] : null;
         $method = isset($request['method']) ? $request['method'] : '';
 
-
-
-
         try {
             if (class_exists('Services\\'.$class)) {
                 if (method_exists('Services\\'.$class, $method)) {

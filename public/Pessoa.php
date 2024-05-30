@@ -1,4 +1,4 @@
 <?php
 
    $pessoa = new PessoaControl();
-   $pessa->show( $_GET);
+   $pessoa->show( $_GET);

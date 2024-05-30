@@ -5,8 +5,8 @@ namespace General\Database;
 
 class Transaction
 {
-   private static $conn;
-   private static $logger;
+    private static $conn;
+    private static $logger;
     private function __construct() {}
 
     public static function open()
