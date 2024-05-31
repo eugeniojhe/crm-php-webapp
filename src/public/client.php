@@ -8,6 +8,10 @@ $parameters['class'] = "PessoaService";
 $parameters['method'] = "getData";
 $parameters['id'] = 3;
 
+echo "<div class='panel panel-default' style='margin: 40px'>\n";
+
+echo "</div>";
+
 $url = $location . "?" . http_build_query($parameters);
 // Initialize cURL
 $ch = curl_init();
