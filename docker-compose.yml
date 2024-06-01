@@ -17,7 +17,6 @@ services:
       WORKING_DIR: /var/www
       CLASS_LOADER_PATH: /var/www/Lib/General/Core/ClassLoader.php
     depends_on:
-      - web
       - db
   web:
     build:
@@ -29,6 +28,8 @@ services:
       - ./src:/var/www
     ports:
       - "80:80"
+    depends_on:
+      - app
   db:
     image: mysql:8.0.25
     container_name: treina-php-mysql-container

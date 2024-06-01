@@ -49,24 +49,28 @@ class SimpleForm
     public function show()
     {
         echo "<div class='panel panel-default' style='margin: 40px'>\n";
-        echo "<div class='panel-heading'>{$this->title}</div>\n";
-        echo "<div class='panel-body'>";
-        echo "<form method='POST' action='{$this->action}' class='form-horizontal'>\n";
-        if ($this->fields) {
-            foreach($this->fields as $field) {
-                echo "<div class='form-group'>\n";
-                  echo "<label class='col-sm-2'>{$field['label']}</label>\n";
-                  echo "<div class='col-sm-10'>\n";
-                     echo "<input type='{$field['type']}' name='{$field['name']}' value='{$field['value']}' class='{$field['class']}'/>\n";
-                  echo "</div>\n";
+            echo "<div class='panel-heading'>{$this->title}</div>\n";
+            echo "<div class='panel-body'>";
+                echo "<form method='POST' action='{$this->action}' class='form-horizontal'>\n";
+                    if ($this->fields) {
+                        foreach($this->fields as $field) {
+                            echo "<div class='form-group'>\n";
+                              echo "<label class='col-sm-2 control-label'>{$field['label']}</label>\n";
+                              echo "<div class='col-sm-10'>\n";
+                                 echo "<input type='{$field['type']}' name='{$field['name']}' value='{$field['value']}' class='{$field['class']}'/>\n";
+                              echo "</div>\n";
 
+                            echo "</div>\n";
+                        }
+
+                    }
+                echo "<div class=form-group>\n";
+                    echo "<div class='col-sm-offset-2 col-sm-10'>\n";
+                          echo "<button type='submit' class='btn btn-success'>Enviar</button>";
+                    echo "</div>\n";
                 echo "</div>\n";
-            }
-
-        }
-        echo "</form>\n";
-
-        echo "</div>\n";
+                echo "</form>\n";
+            echo "</div>\n";
 
         echo "</div>\n";
     }
