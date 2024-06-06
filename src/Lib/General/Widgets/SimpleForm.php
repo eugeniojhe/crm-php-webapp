@@ -24,7 +24,7 @@ class SimpleForm
         $this->title = $title;
     }
 
-    public function addField($label, $name, $type, $value, $class = null)
+    public function addField($label, $name, $type, $value, $class = null, $required = false)
     {
         $this->fields[] = [
             'label' => $label,
@@ -32,6 +32,7 @@ class SimpleForm
             'type' => $type,
             'value' => $value,
             'class' => $class,
+            'required' => $required,
         ];
 
     }
@@ -57,7 +58,7 @@ class SimpleForm
                             echo "<div class='form-group'>\n";
                               echo "<label class='col-sm-2 control-label'>{$field['label']}</label>\n";
                               echo "<div class='col-sm-10'>\n";
-                                 echo "<input type='{$field['type']}' name='{$field['name']}' value='{$field['value']}' class='{$field['class']}'/>\n";
+                                 echo "<input type='{$field['type']}' name='{$field['name']}' value='{$field['value']}' class='{$field['class']}'". ($field['required'] ? 'required' : '')."/>\n";
                               echo "</div>\n";
 
                             echo "</div>\n";

@@ -1,6 +1,12 @@
 <?php
 
+echo '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">';
+
+
+
 require_once "/var/www/Lib/General/Core/AppLoader.php";
+$t = require_once '/var/www/vendor/autoload.php';
+$t->register();
 
 $classLoader = getenv('CLASS_LOADER_PATH');
 
@@ -20,9 +26,13 @@ use Services\PessoaService;
 use Control\PessoaControl;
 
 
+
+
+
 //echo '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">';
 //echo '<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">';
-echo '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">';
+
+
 if (isset($_GET['controller']) && isset($_GET['method'])) {
 
     try {
@@ -47,4 +57,3 @@ if (isset($_GET['controller']) && isset($_GET['method'])) {
     die();
 }
 
-die();
