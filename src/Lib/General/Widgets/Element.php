@@ -6,7 +6,7 @@ class Element
 {
 
     private $tagName;
-    private $properties;
+    protected $properties;
     private $children;
     public function __construct($tagName)
     {
@@ -16,7 +16,7 @@ class Element
 
     public function __set($name, $value)
     {
-        $this->properties[$name] = $value;
+        $this->properties[$name]  = ($this->properties[$name] ?? '') . $value. ' ;';
     }
 
 
@@ -32,18 +32,24 @@ class Element
 
     public function open()
     {
-        echo "<{$this->tagName}";
-        if ($this->properties)
-        {
-            foreach ($this->properties as $name => $value) {
-                if (is_scalar($value)) {
-                    echo "{name} =\"{$value}\"";
+
+        if ($this->tagName) {
+            echo "<{$this->tagName}";
+            echo "\n";
+            if ($this->properties) {
+                //  var_dump($this->properties);
+                foreach ($this->properties as $name => $value) {
+                    if (is_scalar($value)) {
+                        echo "{$name} =\"{$value}\"";
+                        echo "\n";
+                    }
                 }
             }
+
+
+            echo ">";
         }
 
-
-        echo ">";
     }
 
     public function show()
@@ -54,7 +60,7 @@ class Element
         {
             foreach($this->children as $child) {
                if (is_object($child)){
-                   $this->show();
+                   $child->show();
                }
                else if (is_string($child) or is_numeric($child))
                {
