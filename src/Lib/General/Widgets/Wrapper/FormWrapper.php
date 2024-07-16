@@ -2,7 +2,9 @@
 
 namespace General\Widgets\Wrapper;
 use General\Widgets\Forms\Form;
+use General\Widgets\Forms\Button;
 use General\Widgets\Element;
+use General\Widgets\Container\Panel;
 
 class FormWrapper
 {

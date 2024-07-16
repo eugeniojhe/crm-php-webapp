@@ -16,7 +16,7 @@ class Element
 
     public function __set($name, $value)
     {
-        $this->properties[$name]  = ($this->properties[$name] ?? '') . $value. ' ;';
+        $this->properties[$name]  = ($this->properties[$name] ?? '') . $value. '';
     }
 
 
@@ -37,7 +37,6 @@ class Element
             echo "<{$this->tagName}";
             echo "\n";
             if ($this->properties) {
-                //  var_dump($this->properties);
                 foreach ($this->properties as $name => $value) {
                     if (is_scalar($value)) {
                         echo "{$name} =\"{$value}\"";
@@ -45,7 +44,6 @@ class Element
                     }
                 }
             }
-
 
             echo ">";
         }

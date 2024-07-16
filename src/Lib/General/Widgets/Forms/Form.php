@@ -4,7 +4,7 @@ namespace General\Widgets\Forms;
 use General\Control\ActionInterface;
 
 
-class Form implements FormElementInterface
+class Form
 {
     protected $name;
     protected $title;
@@ -32,20 +32,19 @@ class Form implements FormElementInterface
         return $this->title;
     }
 
-    public function addFields($label, FormElementInterface $object, $size = '100%')
+    public function addField($label, FormElementInterface $object, $size = '100%')
     {
         $object->setSize($size);
         $object->setLabel($label);
         $this->fields[$object->getName()] = $object;
     }
 
-
     public function getFields()
     {
         return $this->fields;
     }
 
-    public function addActions($label, ActionInterface $action)
+    public function addAction($label, ActionInterface $action)
     {
         $this->actions[$label] = $action;
     }
@@ -72,7 +71,7 @@ class Form implements FormElementInterface
             $object->$name = $value;
         }
 
-        return $object;
+         return $object;
     }
 
 }
