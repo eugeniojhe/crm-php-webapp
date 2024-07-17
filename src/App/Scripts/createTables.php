@@ -26,6 +26,7 @@ require_once "/var/www/App/Database/CreateTableFuncionario.php";
 echo "Creating functionario tabela\n";
 $funcionario = new CreateTableFuncionario();
 $funcionario->run();
+echo "End of script\n";
 
 
 

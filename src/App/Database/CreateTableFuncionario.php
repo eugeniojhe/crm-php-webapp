@@ -7,7 +7,7 @@ use General\Database\CreateTable;
 class CreateTableFuncionario extends CreateTable
 {
 
-       const TABLE_NAME = "funcionarios";
+       const TABLE = "funcionarios";
        const FIELDS = [
            'id INT(11) AUTO_INCREMENT PRIMARY KEY',
            'nome VARCHAR(255) NOT NULL',
@@ -34,8 +34,8 @@ class CreateTableFuncionario extends CreateTable
 //                    'idiomas VARCHAR(255)',
 //                ]
 //            ];
-        public function __construct()
-        {
-            parent::__construct($this->tableAndFields);
-        }
+//        public function __construct()
+//        {
+//            parent::__construct($this->tableAndFields);
+//        }
 }

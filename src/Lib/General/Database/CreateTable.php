@@ -2,79 +2,86 @@
 
 namespace General\Database;
 
+use General\Log\LoggerTXT;
+
 abstract class CreateTable
 {
 
-        private $pdo = null;
+        private static $pdo = null;
         private $table;
+        private $fields;
 
-        public function __construct($tableAndFields)
+        private $conn;
+
+        public function __construct()
         {
-            $this->pdo = Transaction::open();
-            $this->table = $tableAndFields;
+            $this->table = $this->getEntity();
+            $this->fields = $this->getFields();
+            $this->conn = Connection::open();
+            Transaction::setLogger(new LoggerTXT('tmp/log_delete.txt'));
         }
-
 
         private function getEntity()
         {
-            $class = get_called_class();
-            return constant("{$class}::TABLE");
+            $obj = get_class($this);
+            return constant("{$obj}::TABLE");
         }
 
-        public function run()
+        private function getFields()
         {
+            $obj = get_class($this);
+            return constant("{$obj}::FIELDS");
+        }
 
+        public   function run()
+        {
             echo "=====================";
             echo "\n";
 
             try {
-
-
-                if (empty($this->table['fields']) OR empty($this->table['tableName'])) {
+                if (empty($this->table) OR empty($this->fields)) {
                    throw new \Exception('Table or Fields not provided in ' . __CLASS__);
                 }
 
-                $tableName =   strtolower($this->sanitizeTableName($this->table['tableName']));
-                $fields = $this->sanitizeFields($this->table['fields']);
-                if (empty($fields) or empty($tableName)) {
+                $this->table =   strtolower($this->sanitizeTableName());
+                $this->fields  = $this->sanitizeFields($this->table);
+                if (empty($this->fields) or empty($this->table)) {
                     throw new \Exception('Invalid name Table or Fields not provided in ' . __CLASS__);
                 }
 
-                $sql = "SHOW TABLES LIKE '" . $tableName . "'";
-                $conn = Transaction::get();
-                $result =  $conn->query($sql);
+                $sql = "SHOW TABLES LIKE '" . $this->table . "'";
+                $result =  $this->conn->query($sql);
                 if ($result && $result->rowCount() > 0) {
-                    throw new \Exception("Table '" . $tableName . "' already exists.\n");
+                    throw new \Exception("Table '" . $this->table . "' already exists.\n");
                 }
 
-                $sql = "CREATE TABLE IF NOT EXISTS " . $tableName . " ( ";
-                $sql.= implode(", ", $fields);
+                $sql = "CREATE TABLE IF NOT EXISTS " . $this->table . " ( ";
+                $sql.= implode(", ", $this->fields);
                 $sql.= ")";
-                $connection = Transaction::get();
-                $connection->exec($sql);
-                Transaction::close();
+                $this->conn->query($sql);
 
             } catch (\Exception $e) {
                 echo $e->getMessage();
-//                Transaction::rollback();
-//                $this->closeConnection();
+                Transaction::log($e->getMessage());
+                echo "=====================\n";
+                return false;
             }
-
-            echo "=====================";
-            echo "\n";
+            echo "Table=> {$this->table} created successfully.\n";
+            echo "=====================\n";
+            return true;
 
         }
 
-    private function sanitizeTableName($tableName)
+    private function sanitizeTableName()
         {
-            return preg_replace('/[^a-zA-Z0-9_]/', '', $tableName);
+            return preg_replace('/[^a-zA-Z0-9_]/', '', $this->table);
         }
 
-        private function sanitizeFields($fields): array
+        private function sanitizeFields(): array
         {
             $sanitizedFields = [];
 
-            foreach ($fields as $field) {
+            foreach ($this->fields as $field) {
                 $sanitizedField = preg_replace('/[^a-zA-Z0-9_(),\s]/', '', $field);
                 if (!empty($sanitizedField)) {
                     $sanitizedFields[] = $sanitizedField;
@@ -83,10 +90,4 @@ abstract class CreateTable
 
             return $sanitizedFields;
         }
-        public function closeConnection()
-        {
-            Transaction::close();
-        }
-
-
 }

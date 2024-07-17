@@ -1,6 +1,7 @@
 <?php
 
 namespace General\Database;
+use General\Log\Logger;
 
 
 class Transaction
@@ -18,8 +19,11 @@ class Transaction
 
     public static function close()
     {
-            return self::$conn->commit();
-            self::$conn = null;
+            if (self::$conn) {
+                self::$conn->commit();
+                self::$conn = null;
+            }
+
     }
 
     public static function get()
@@ -29,6 +33,7 @@ class Transaction
 
     public static function rollback()
     {
+        var_dump(self::$conn);
         if(self::$conn)
         {
             self::$conn->rollback();

@@ -16,6 +16,7 @@ $loader = new General\Core\ClassLoader();
 $loader->addNamespace('General\Database', 'Lib/General/Database');
 $loader->addNamespace('General\Widgets', 'Lib/General/Widgets');
 $loader->addNamespace('General\Control', 'Lib/General/Control');
+$loader->addNamespace('General\Log', 'Lib/General/Log');
 $loader->register();
 
 $appLoader = new General\Core\AppLoader();
