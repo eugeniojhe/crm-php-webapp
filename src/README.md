@@ -1,2 +1,4 @@
 # treina-php-webapp
-That is a repository, fom some projects in php pure php 
+>That is a repository, for some projects in php pure php 
+>
+>That can be used as base for other projects

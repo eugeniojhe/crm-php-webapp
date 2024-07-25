@@ -22,16 +22,16 @@ class ConnectionOld
 
         switch ($type) {
             case "mysql" :
-                $conn = new PDO("mysql:host=$host;dbname=$db", $user,
+                $conn = new Pdo1("mysql:host=$host;dbname=$db", $user,
                     $password);
-                $conn->setAttribute(PDO::ATTR_ERRMODE,
-                    PDO::ERRMODE_EXCEPTION);
+                $conn->setAttribute(Pdo1::ATTR_ERRMODE,
+                    Pdo1::ERRMODE_EXCEPTION);
                 echo '<h2>Conectado com sucesso.<h2>';
                 break;
             case "pgsql" :
                 $dsn = "pgsql:host=$host;port=5432;dbname=$db;";
                 // make a database connection
-                $pdo = new PDO($dsn, $user, $password, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+                $pdo = new Pdo1($dsn, $user, $password, [Pdo1::ATTR_ERRMODE => Pdo1::ERRMODE_EXCEPTION]);
 
                 if ($pdo) {
                     echo "Connected to the $db database successfully!";
@@ -41,8 +41,8 @@ class ConnectionOld
                 break;
         }
 
-        $conn->setAttribute(PDO::ATTR_ERRMODE,
-            PDO::ERRMODE_EXCEPTION);
+        $conn->setAttribute(Pdo1::ATTR_ERRMODE,
+            Pdo1::ERRMODE_EXCEPTION);
         return $conn;
 
 

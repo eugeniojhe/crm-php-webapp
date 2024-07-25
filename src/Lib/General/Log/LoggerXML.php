@@ -1,6 +1,7 @@
 <?php
 
 namespace General\Log;
+
 class LoggerXML extends Logger
 {
     public function write($message)

@@ -2,7 +2,11 @@
 
 namespace General\Database;
 
+use General\Log\Logger;
 use General\Log\LoggerTXT;
+use General\Log\LoggerXML;
+use General\Log\LoggerJSON;
+use General\Log\Config;
 
 abstract class CreateTable
 {
@@ -18,7 +22,7 @@ abstract class CreateTable
             $this->table = $this->getEntity();
             $this->fields = $this->getFields();
             $this->conn = Connection::open();
-            Transaction::setLogger(new LoggerTXT('tmp/log_delete.txt'));
+            Transaction::setLogger(new LoggerJSON(Config::getLogFileJSON()));
         }
 
         private function getEntity()
@@ -58,6 +62,7 @@ abstract class CreateTable
                 $sql = "CREATE TABLE IF NOT EXISTS " . $this->table . " ( ";
                 $sql.= implode(", ", $this->fields);
                 $sql.= ")";
+                Transaction::log($sql);
                 $this->conn->query($sql);
 
             } catch (\Exception $e) {

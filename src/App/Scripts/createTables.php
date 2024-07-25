@@ -2,6 +2,9 @@
 require_once "/var/www/Lib/General/Core/AppLoader.php";
 $t = require_once '/var/www/vendor/autoload.php';
 $t->register();
+$classLoader = getenv('CLASS_LOADER_PATH');
+$dotenv = Dotenv\Dotenv::createImmutable(realpath(__DIR__ . '/../../'));
+$dotenv->load();
 
 $classLoader = getenv('CLASS_LOADER_PATH');
 
@@ -12,6 +15,7 @@ $loader = new General\Core\ClassLoader();
 $loader->addNamespace('General\Database', 'Lib/General/Database');
 $loader->addNamespace('General\Widgets', 'Lib/General/Widgets');
 $loader->addNamespace('General\Control', 'Lib/General/Control');
+$loader->addNamespace('General\Log', 'Lib/General/Log');
 $loader->register();
 
 $appLoader = new General\Core\AppLoader();

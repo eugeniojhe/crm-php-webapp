@@ -2,12 +2,13 @@ version: "3.3"
 services:
   app:
     build:
-      context: /home/eugenio/projetos/base-images/php
-      dockerfile: dockerfile
+      context: ./.docker/services/app
+      dockerfile: app.dockerfile
     container_name: treina-php-container
     working_dir: /var/www
     volumes:
       - ./src:/var/www
+      - ./.env:/var/www/.env
     user: 1001:1001
     environment:
       DB_HOST: db
@@ -15,13 +16,15 @@ services:
       DB_PASSWORD: root
       DB_NAME: php_treina
       WORKING_DIR: /var/www
-      CLASS_LOADER_PATH: /var/www/Lib/General/Core/ClassLoader.php
+      CLASS_LOADER: /var/www/Lib/General/Core/ClassLoader.php
+      APP_LOADER: /var/www/Lib/General/Core/AppLoader.php
+      AUTO_LOADER: /var/www/vendor/autoload.php
     depends_on:
       - db
   web:
     build:
-      context: /home/eugenio/projetos/base-images/nginx
-      dockerfile: dockerfile
+      context: ./.docker/services/web
+      dockerfile: web.dockerfile
     container_name: treina-php-web-container
     working_dir: /var/www
     volumes:

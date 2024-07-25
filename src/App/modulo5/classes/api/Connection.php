@@ -1,7 +1,7 @@
 <?php
 
 namespace modulo5\classes\api;
-use PDO;
+use Pdo1;
 class Connection
 {
 
@@ -12,14 +12,14 @@ class Connection
         $user = getenv('DB_USER');
         $password = getenv('DB_PASSWORD');
         $db = getenv('DB_NAME');
-        $conn = new PDO("mysql:host=$host;dbname=$db", $user,
+        $conn = new Pdo1("mysql:host=$host;dbname=$db", $user,
             $password);
 //        $conn->setAttribute(PDO::ATTR_ERRMODE,
 //            PDO::ERRMODE_EXCEPTION);
 //        echo '<h2>Conectado com sucesso.<h2>';
 
-        $conn->setAttribute(PDO::ATTR_ERRMODE,
-            PDO::ERRMODE_EXCEPTION);
+        $conn->setAttribute(Pdo1::ATTR_ERRMODE,
+            Pdo1::ERRMODE_EXCEPTION);
         return $conn;
 
 

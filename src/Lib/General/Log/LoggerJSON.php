@@ -11,6 +11,6 @@ class LoggerJSON extends Logger
             'data' => date('Y-m-d h:i:s'),
             'message' => $message
         );
-        file_put_contents($this->filename, json_encode($data));
+        file_put_contents($this->filename, json_encode($data), FILE_APPEND);
     }
 }
