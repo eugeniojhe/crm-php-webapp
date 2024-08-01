@@ -26,6 +26,7 @@ class Action implements ActionInterface
            if ($this->parameter) {
                $url = array_merge($url, $this->parameter);
            }
+
             return '?' . http_build_query($url);
 
        }

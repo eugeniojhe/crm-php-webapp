@@ -22,6 +22,8 @@ class ContatoForm extends Page
         $this->form = new FormWrapper( new Form('Form_contato'));
         $this->form->setTitle('Formulário de Contato');
 
+
+
         $entryNome = new Entry('nome');
 
         $entryEmail = new Entry('email');

@@ -2,6 +2,7 @@
 
 namespace Control;
 
+use General\Database\Transaction;
 use General\Control\Action;
 use General\Control\Page;
 use General\Widgets\Forms\CheckGroup;
@@ -10,6 +11,7 @@ use General\Widgets\Forms\Entry;
 use General\Widgets\Forms\Form;
 use General\Widgets\Wrapper\FormWrapper;
 use General\Widgets\Forms\RadioGroup;
+use General\Widgets\Dialog\Message;
 
 class FuncionarioForm extends Page
 {
@@ -76,7 +78,18 @@ class FuncionarioForm extends Page
 
         public function onSave()
         {
-            echo "Inside onSave()\n";
+            try {
+                    Transaction::open();
+
+                    $data = $this->form->getData();
+                    var_dump($data);
+
+                    Transaction::close();
+            } catch ( \Exception $e)
+            {
+                new Message('error', $e->getMessage());
+            }
+
         }
 
         public function onClear()

@@ -14,7 +14,7 @@ class Entry extends Field
         $tag->name = $this->name;
         $tag->value = $this->value;
         $tag->type = 'text';
-        $tag->stype = "width:{$this->size}";
+        $tag->style = "width:{$this->size}";
         if (!parent::getEditable())
         {
            $tag->readonly = "1";
