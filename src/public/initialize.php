@@ -1,12 +1,13 @@
 <?php
 
+
 DEFINE('WORKING_DIR', getenv('WORKING_DIR'));
 DEFINE('CLASS_LOADER', getenv('CLASS_LOADER'));
 DEFINE('APP_LOADER', getenv('APP_LOADER'));
-DEFINE('AUTO_LOADER',getenv('AUTO_LOADER'));
+DEFINE('AUTO_LOADER', getenv('AUTO_LOADER'));
 
 require_once CLASS_LOADER; //General loaders - Core project - This can be used for other projects that use the same structure
-require_once APP_LOADER ; //Looders  of app
+require_once APP_LOADER; //Looders  of app
 $t = require_once AUTO_LOADER; //AutoLoader for Doteven
 
 use General\Core\ClassLoader;
@@ -39,7 +40,7 @@ function handleRequest()
             print $e->getMessage();
         }
 
-    }  else {
+    } else {
         echo "Controle  was not informed on Url ";
         die();
     }
@@ -60,5 +61,5 @@ function initializeAppLoader()
 {
     $appLoader = new AppLoader();
     $appLoader->register();
-    $appLoader->addDirectory(WORKING_DIR.DIRECTORY_SEPARATOR.'App');
+    $appLoader->addDirectory(WORKING_DIR . DIRECTORY_SEPARATOR . 'App');
 }
