@@ -2,6 +2,7 @@
 
 namespace General\Database;
 use Model\Produto;
+use Model\Funcionario;
 
 class Repository
 {

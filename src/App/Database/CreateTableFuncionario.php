@@ -17,7 +17,9 @@ class CreateTableFuncionario extends CreateTable
            'contracao VARCHAR(255)',
            'cidade VARCHAR(255)',
            'estado VARCHAR(255)',
+           'endereco VARCHAR(255)',
            'idiomas VARCHAR(255)',
+           'contratacao INT(2)'
        ];
 
 }

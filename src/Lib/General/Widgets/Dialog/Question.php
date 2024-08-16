@@ -8,7 +8,7 @@ use General\Control\Action;
 
 class Question
 {
-    function __construct($message, Action $actionYes, Action $actionNo)
+    function __construct($message, Action $actionYes, Action $actionNo = null)
     {
 
         $div = new Element('div');

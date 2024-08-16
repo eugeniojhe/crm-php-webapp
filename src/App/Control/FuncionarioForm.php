@@ -12,6 +12,7 @@ use General\Widgets\Forms\Form;
 use General\Widgets\Wrapper\FormWrapper;
 use General\Widgets\Forms\RadioGroup;
 use General\Widgets\Dialog\Message;
+use Model\Funcionario;
 
 class FuncionarioForm extends Page
 {
@@ -28,7 +29,7 @@ class FuncionarioForm extends Page
             $endereco = new Entry('endereco');
             $email = new Entry('email');
             $departamento = new Combo('departamento');
-            $idiomas = new CheckGroup('Idiomas');
+            $idiomas = new CheckGroup('idiomas');
 
             $contratacao = new RadioGroup('contratacao');
 
@@ -82,7 +83,15 @@ class FuncionarioForm extends Page
                     Transaction::open();
 
                     $data = $this->form->getData();
-                    var_dump($data);
+                    $funcionario = new Funcionario();
+                    $funcionario->fromArray( (array) $data);
+                    $funcionario->idiomas = implode(',', (array) $data->idiomas);
+                    $funcionario->store();
+                    $data->id = $funcionario->id;
+
+                    $this->form->setData($data);
+
+                    new Message('info', 'Dados salvos com sucesso');
 
                     Transaction::close();
             } catch ( \Exception $e)
@@ -90,6 +99,30 @@ class FuncionarioForm extends Page
                 new Message('error', $e->getMessage());
             }
 
+        }
+
+
+        public function onEdit($params)
+        {
+            try {
+                Transaction::open();
+
+                $id = isset($params['id']) ? $params['id'] : null;
+
+                $funcionario = Funcionario::find($id);
+                if ($funcionario) {
+
+                    if (isset($funcionario->idimoas)) {
+                        $funcionario->idiomas = explode(',', $funcionario->idiomas);
+                    }
+                    $this->form->setData($funcionario);
+                }
+
+                Transaction::close();
+
+            } catch (\Exception $e) {
+                new Message('error', $e->getMessage());
+            }
         }
 
         public function onClear()

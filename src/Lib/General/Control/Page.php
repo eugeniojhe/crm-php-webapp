@@ -19,7 +19,6 @@ class Page extends  Element
                 call_user_func([$this, $method], $_GET);
             }
         }
-
         Parent::show();
     }
 }

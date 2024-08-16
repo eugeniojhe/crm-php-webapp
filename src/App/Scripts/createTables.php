@@ -2,11 +2,9 @@
 require_once "/var/www/Lib/General/Core/AppLoader.php";
 $t = require_once '/var/www/vendor/autoload.php';
 $t->register();
-$classLoader = getenv('CLASS_LOADER_PATH');
+$classLoader = getenv('CLASS_LOADER');
 $dotenv = Dotenv\Dotenv::createImmutable(realpath(__DIR__ . '/../../'));
 $dotenv->load();
-
-$classLoader = getenv('CLASS_LOADER_PATH');
 
 
 require_once($classLoader);

@@ -12,7 +12,7 @@ class Panel extends Element
 
     private $class = null;
 
-    public function __construct($panelTitle)
+    public function __construct($panelTitle  = null)
     {
         parent::__construct('div');
 

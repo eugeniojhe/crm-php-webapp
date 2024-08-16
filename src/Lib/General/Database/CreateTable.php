@@ -17,8 +17,11 @@ abstract class CreateTable
 
         private $conn;
 
+        private $obj;
+
         public function __construct()
         {
+            $this->obj = get_class($this);
             $this->table = $this->getEntity();
             $this->fields = $this->getFields();
             $this->conn = Connection::open();
@@ -27,14 +30,12 @@ abstract class CreateTable
 
         private function getEntity()
         {
-            $obj = get_class($this);
-            return constant("{$obj}::TABLE");
+            return constant("{$this->obj}::TABLE");
         }
 
         private function getFields()
         {
-            $obj = get_class($this);
-            return constant("{$obj}::FIELDS");
+            return constant("{$this->obj}::FIELDS");
         }
 
         public   function run()

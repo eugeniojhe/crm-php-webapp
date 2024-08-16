@@ -121,7 +121,7 @@ abstract class Record
             $sql .= " WHERE id = " . (int) $this->data['id'];
         }
         Transaction::log($sql);
-        if ($conn = \Transaction::get()) {
+        if ($conn = Transaction::get()) {
             $result = $conn->exec($sql);
         } else {
             throw new Exception('Não existe conexão ativa com a base de dados');
@@ -131,12 +131,12 @@ abstract class Record
     public function getLastId()
     {
         $sql = "SELECT max(id)  as max FROM {$this->getEntity()}";
-        if ($conn = \Transaction::get()){
-            \Transaction::log($sql);
+        if ($conn = Transaction::get()){
+            Transaction::log($sql);
             $result = $conn->query($sql);
             if ($result !== false) {
                 // Fetch the result as an associative array
-                $data = $result->fetch(PDO::FETCH_ASSOC);
+                $data = $result->fetch(\PDO::FETCH_ASSOC);
 
                 // Access the 'max' column from the fetched data
                 if ($data && isset($data['max'])) {
