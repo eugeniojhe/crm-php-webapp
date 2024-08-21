@@ -37,7 +37,13 @@ class FuncionarioList extends Page
             $this->datagrid->addColumn($email);
 
             $this->datagrid->addAction('Editar', new Action([ new FuncionarioForm, 'onEdit']), 'id');
-            $this->datagrid->addAction('Deletar', new Action([new FuncionarioForm, 'onDelete']), 'id');
+            $this->datagrid->addAction('Deletar', new Action([$this, 'onDelete']), 'id');
+
+//            $this->datagrid->addAction( 'Editar',  new Action([new FuncionarioForm, 'onEdit']), 'id', 'fa fa-edit fa-lg blue');
+//            $this->datagrid->addAction( 'Excluir',  new Action([$this, 'onDelete']),         'id', 'fa fa-trash fa-lg red');
+
+
+
             parent::add($this->datagrid);
         } catch (Exception $e) {
             new Message('error', $e->getMessage());
@@ -62,7 +68,6 @@ class FuncionarioList extends Page
 
             $this->datagrid->clear();
             if (!empty($functionarios)) {
-                echo "<pre>";
                 foreach ($functionarios as $functionario) {
                     $this->datagrid->addItem($functionario);
                 }
@@ -71,7 +76,6 @@ class FuncionarioList extends Page
                 die();
             }
 
-            echo "</pre>";
             Transaction::close();
         }catch (\Exception $exception){
             Transaction::rollback();

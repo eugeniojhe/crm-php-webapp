@@ -60,7 +60,8 @@ class DatagridWrapper
         if ($actions) {
             foreach ($actions as $action) {
                 $celula = new Element('th');
-                $celula->width = '40px';
+                $celula->width = '4px';
+//                $celula->add($action);
                 $row->add($celula);
             }
         }
@@ -80,6 +81,7 @@ class DatagridWrapper
                 if ($column->getAction()) {
                     $url = $column->getAction();
                     $celula->onclick = 'document.location.href = "' . $url . '";';
+                    $row->add($celula);
                 }
             }
         }
@@ -114,6 +116,13 @@ class DatagridWrapper
                 } else {
                     $link->add($label);
                 }
+
+                $element = new Element('td');
+                $element->add($link);
+                $element->align = 'center';
+
+                // adiciona a célula à linha
+                $row->add($element);
 
             }
         }

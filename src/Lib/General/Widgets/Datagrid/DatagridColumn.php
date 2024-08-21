@@ -51,7 +51,6 @@ class DatagridColumn
         if ($this->action) {
             return $this->action->serialize();
         }
-
     }
     /**
      * Define uma função (callback) a ser aplicada sobre a coluna
