@@ -40,8 +40,10 @@ abstract class CreateTable
 
         public   function run()
         {
-            echo "=====================";
-            echo "\n";
+            //If you want to, uncomment
+//            echo "=====================\n";
+//            echo "Creating table {$this->table}";
+//            echo "\n";
 
             try {
                 if (empty($this->table) OR empty($this->fields)) {
@@ -67,9 +69,10 @@ abstract class CreateTable
                 $this->conn->query($sql);
 
             } catch (\Exception $e) {
-                echo $e->getMessage();
+
+              //  echo $e->getMessage(); //If you want, uncomment,
                 Transaction::log($e->getMessage());
-                echo "=====================\n";
+             //   echo "=====================\n"; //If you want uncomment
                 return false;
             }
             echo "Table=> {$this->table} created successfully.\n";

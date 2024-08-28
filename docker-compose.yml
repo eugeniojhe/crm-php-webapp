@@ -26,6 +26,7 @@ services:
       IDE_PHPUNIT_PHPUNIT_PHAR: /var/www/vendor/bin/phpunit
     depends_on:
       - db
+      - redis
   web:
     build:
       context: ./.docker/services/web
@@ -55,6 +56,15 @@ services:
     ports:
       - "3306:3306"
     command: --default-authentication-plugin=mysql_native_password
+
+  redis:
+    image: redis:alpine
+    container_name: crm-php-redis-container
+    volumes:
+      - ./.docker/volumes/redis:/data
+    ports:
+      - "6379:6379"
+  # Mailing Server
 
 
 #  nginx:

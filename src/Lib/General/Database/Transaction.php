@@ -34,7 +34,6 @@ class Transaction
 
     public static function rollback()
     {
-        var_dump(self::$conn);
         if(self::$conn)
         {
             self::$conn->rollback();

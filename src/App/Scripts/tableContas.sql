@@ -1,0 +1,12 @@
+INSERT INTO contas  (id_cliente,  dt_emissao,  dt_vencimento, vl_total, paga)   VALUES(1,'2018-03-10','2018-03-12',360.0,'N');
+INSERT INTO contas  (id_cliente,  dt_emissao,  dt_vencimento, vl_total, paga)   VALUES(2,'2018-03-10','2018-03-12',324.0,'N');
+INSERT INTO contas  (id_cliente,  dt_emissao,  dt_vencimento, vl_total, paga)   VALUES(3,'2018-03-10','2018-03-12',315.0,'N');
+INSERT INTO contas  (id_cliente,  dt_emissao,  dt_vencimento, vl_total, paga)   VALUES(4,'2018-03-10','2018-03-12',360.0,'N');
+INSERT INTO contas  (id_cliente,  dt_emissao,  dt_vencimento, vl_total, paga)   VALUES(5,'2018-03-10','2018-03-12',810.0,'N');
+INSERT INTO contas  (id_cliente,  dt_emissao,  dt_vencimento, vl_total, paga)   VALUES(6,'2018-03-10','2018-03-12',630.0,'N');
+INSERT INTO contas  (id_cliente,  dt_emissao,  dt_vencimento, vl_total, paga)   VALUES(7,'2018-03-10','2018-03-12',720.0,'N');
+INSERT INTO contas  (id_cliente,  dt_emissao,  dt_vencimento, vl_total, paga)   VALUES(8,'2018-03-10','2018-03-12',540.0,'N');
+INSERT INTO contas  (id_cliente,  dt_emissao,  dt_vencimento, vl_total, paga)   VALUES(9,'2018-03-10','2018-03-12',1260.0,'N');
+INSERT INTO contas  (id_cliente,  dt_emissao,  dt_vencimento, vl_total, paga)   VALUES(10,'2018-03-10','2018-03-12',720.0,'N');
+INSERT INTO contas  (id_cliente,  dt_emissao,  dt_vencimento, vl_total, paga)   VALUES(11,'2018-03-10','2018-03-12',1080.0,'N');
+INSERT INTO contas  (id_cliente,  dt_emissao,  dt_vencimento, vl_total, paga)   VALUES(12,'2018-03-10','2018-03-12',1100.0,'N');

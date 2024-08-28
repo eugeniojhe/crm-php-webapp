@@ -12,7 +12,9 @@ use General\Widgets\Forms\Form;
 use General\Widgets\Wrapper\FormWrapper;
 use General\Widgets\Forms\RadioGroup;
 use General\Widgets\Dialog\Message;
+use General\Cache\Redis;
 use Model\Funcionario;
+
 
 class FuncionarioForm extends Page
 {

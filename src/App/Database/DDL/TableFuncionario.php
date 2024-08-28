@@ -1,10 +1,10 @@
 <?php
 
-namespace Database;
+namespace Database\DDL;
 
 use General\Database\CreateTable;
 
-class CreateTableFuncionario extends CreateTable
+class TableFuncionario extends CreateTable
 {
 
        const TABLE = "funcionarios";

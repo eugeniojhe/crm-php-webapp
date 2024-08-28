@@ -54,6 +54,7 @@ function initializeClassLoader()
     $loader->addNamespace('General\Widgets', 'Lib/General/Widgets');
     $loader->addNamespace('General\Control', 'Lib/General/Control');
     $loader->addNamespace('General\Core', 'Lib/General/core');
+    $loader->addNamespace('General\Cache', 'Lib/General/Cache');
     $loader->register();
 }
 

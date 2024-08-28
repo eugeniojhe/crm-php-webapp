@@ -1,0 +1,10 @@
+INSERT INTO fabricantes  (nome, site)  VALUES('Kingston','www.kingston.com');
+INSERT INTO fabricantes  (nome, site)  VALUES('Seagate','www.seagate.com');
+INSERT INTO fabricantes  (nome, site)  VALUES('Corsair','www.corsair.com');
+INSERT INTO fabricantes  (nome, site)  VALUES('Olimpus','www.olimpus.com');
+INSERT INTO fabricantes  (nome, site)  VALUES('Samsung','www.samsung.com');
+INSERT INTO fabricantes  (nome, site)  VALUES('Sony','www.sony.com');
+INSERT INTO fabricantes  (nome, site)  VALUES('Creative','www.creative.com');
+INSERT INTO fabricantes  (nome, site)  VALUES('Intel','www.intel.com');
+INSERT INTO fabricantes  (nome, site)  VALUES('HP','www.hp.com');
+INSERT INTO fabricantes  (nome, site)  VALUES('Satellite','www.satellite.com');

@@ -1,0 +1,24 @@
+INSERT INTO produtos (descricao,  estoque,  preco_custo,  preco_venda, id_fabricante, id_unidade,  id_tipo)    VALUES('Pendrive 512Mb',10.0,20.0,40.0,1,10,2);
+INSERT INTO produtos (descricao,  estoque,  preco_custo,  preco_venda, id_fabricante, id_unidade,  id_tipo)    VALUES('HD 120 GB',20.0,100.0,180.0,2,10,4);
+INSERT INTO produtos (descricao,  estoque,  preco_custo,  preco_venda, id_fabricante, id_unidade,  id_tipo)    VALUES('SD CARD  512MB',4.0,20.0,35.0,3,10,2);
+INSERT INTO produtos (descricao,  estoque,  preco_custo,  preco_venda, id_fabricante, id_unidade,  id_tipo)    VALUES('SD CARD 1GB MINI',3.0,28.0,40.0,1,10,2);
+INSERT INTO produtos (descricao,  estoque,  preco_custo,  preco_venda, id_fabricante, id_unidade,  id_tipo)    VALUES('CAM. FOTO I70 PLATA',5.0,600.0,900.0,5,10,1);
+INSERT INTO produtos (descricao,  estoque,  preco_custo,  preco_venda, id_fabricante, id_unidade,  id_tipo)    VALUES('CAM. FOTO DSC-W50 PLATA',4.0,400.0,700.0,6,10,1);
+INSERT INTO produtos (descricao,  estoque,  preco_custo,  preco_venda, id_fabricante, id_unidade,  id_tipo)    VALUES('WEBCAM INSTANT VF0040SP',4.0,50.0,80.0,7,10,1);
+INSERT INTO produtos (descricao,  estoque,  preco_custo,  preco_venda, id_fabricante, id_unidade,  id_tipo)    VALUES('CPU 775 CEL.D 360  3.46 512K 533M',10.0,140.0,300.0,8,10,4);
+INSERT INTO produtos (descricao,  estoque,  preco_custo,  preco_venda, id_fabricante, id_unidade,  id_tipo)    VALUES('FILMADORA DCR-DVD108',2.0,900.0,1400.0,6,10,1);
+INSERT INTO produtos (descricao,  estoque,  preco_custo,  preco_venda, id_fabricante, id_unidade,  id_tipo)    VALUES('HD IDE  80G 7.200',8.0,90.0,160.0,5,10,4);
+INSERT INTO produtos (descricao,  estoque,  preco_custo,  preco_venda, id_fabricante, id_unidade,  id_tipo)    VALUES('IMP LASERJET 1018 USB 2.0',4.0,200.0,300.0,9,10,1);
+INSERT INTO produtos (descricao,  estoque,  preco_custo,  preco_venda, id_fabricante, id_unidade,  id_tipo)    VALUES('MEM DDR  512MB 400MHZ PC3200',10.0,60.0,100.0,5,10,4);
+INSERT INTO produtos (descricao,  estoque,  preco_custo,  preco_venda, id_fabricante, id_unidade,  id_tipo)    VALUES('MEM DDR2 1024MB 533MHZ PC4200',5.0,100.0,170.0,3,10,4);
+INSERT INTO produtos (descricao,  estoque,  preco_custo,  preco_venda, id_fabricante, id_unidade,  id_tipo)    VALUES('MON LCD 19 920N PRETO',2.0,500.0,800.0,5,10,4);
+INSERT INTO produtos (descricao,  estoque,  preco_custo,  preco_venda, id_fabricante, id_unidade,  id_tipo)    VALUES('MOUSE USB OMC90S OPT.C/LUZ',10.0,20.0,40.0,5,10,2);
+INSERT INTO produtos (descricao,  estoque,  preco_custo,  preco_venda, id_fabricante, id_unidade,  id_tipo)    VALUES('NB DV6108 CS 1.86/512/80/DVD+RW ',2.0,1400.0,2500.0,9,10,1);
+INSERT INTO produtos (descricao,  estoque,  preco_custo,  preco_venda, id_fabricante, id_unidade,  id_tipo)    VALUES('NB N220E/B DC 1.6/1/80/DVD+RW ',3.0,1800.0,3400.0,6,10,1);
+INSERT INTO produtos (descricao,  estoque,  preco_custo,  preco_venda, id_fabricante, id_unidade,  id_tipo)    VALUES('CAM. FOTO DSC-W90 PLATA',5.0,600.0,1200.0,6,10,1);
+INSERT INTO produtos (descricao,  estoque,  preco_custo,  preco_venda, id_fabricante, id_unidade,  id_tipo)    VALUES('CART. 8767 NEGRO',20.0,30.0,50.0,9,10,3);
+INSERT INTO produtos (descricao,  estoque,  preco_custo,  preco_venda, id_fabricante, id_unidade,  id_tipo)    VALUES('CD-R TUBO DE 100 52X 700MB',20.0,30.0,60.0,5,10,5);
+INSERT INTO produtos (descricao,  estoque,  preco_custo,  preco_venda, id_fabricante, id_unidade,  id_tipo)    VALUES('MEM DDR 1024MB 400MHZ PC3200',7.0,80.0,150.0,1,10,4);
+INSERT INTO produtos (descricao,  estoque,  preco_custo,  preco_venda, id_fabricante, id_unidade,  id_tipo)    VALUES('MOUSE PS2 A7 AZUL/PLATA',20.0,5.0,15.0,10,10,2);
+INSERT INTO produtos (descricao,  estoque,  preco_custo,  preco_venda, id_fabricante, id_unidade,  id_tipo)    VALUES('SPEAKER AS-5100 HOME PRATA',5.0,100.0,180.0,10,10,2);
+INSERT INTO produtos (descricao,  estoque,  preco_custo,  preco_venda, id_fabricante, id_unidade,  id_tipo)    VALUES('TEC. USB ABNT AK-806',14.0,20.0,40.0,10,10,2)
