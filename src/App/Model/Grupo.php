@@ -6,5 +6,5 @@ use General\Database\Record;
 
 class Grupo extends Record
 {
-    const TABLENAME = 'estados';
+    const TABLENAME = 'grupos';
 }
