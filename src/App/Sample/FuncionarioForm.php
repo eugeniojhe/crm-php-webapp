@@ -1,18 +1,17 @@
 <?php
 
-namespace Control;
+namespace Sample;
 
-use General\Database\Transaction;
 use General\Control\Action;
 use General\Control\Page;
+use General\Database\Transaction;
+use General\Widgets\Dialog\Message;
 use General\Widgets\Forms\CheckGroup;
 use General\Widgets\Forms\Combo;
 use General\Widgets\Forms\Entry;
 use General\Widgets\Forms\Form;
-use General\Widgets\Wrapper\FormWrapper;
 use General\Widgets\Forms\RadioGroup;
-use General\Widgets\Dialog\Message;
-use General\Cache\Redis;
+use General\Widgets\Wrapper\FormWrapper;
 use Model\Funcionario;
 
 

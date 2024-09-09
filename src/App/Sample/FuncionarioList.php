@@ -1,17 +1,17 @@
 <?php
 
-namespace Control;
+namespace Sample;
 
 use General\Control\Action;
 use General\Control\Page;
 use General\Database\Criteria;
+use General\Database\Repository;
 use General\Database\Transaction;
 use General\Widgets\Datagrid\Datagrid;
 use General\Widgets\Datagrid\DatagridColumn;
 use General\Widgets\Dialog\Message;
-use General\Widgets\Wrapper\DatagridWrapper;
-use General\Database\Repository;
 use General\Widgets\Dialog\Question;
+use General\Widgets\Wrapper\DatagridWrapper;
 use Model\Funcionario;
 use PHPUnit\Exception;
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace Control;
-use Twig\Loader\FilesystemLoader;
-use Twig\Environment;
+namespace Sample;
 use General\Control\Page;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 class TwigSampleControl extends Page
 {

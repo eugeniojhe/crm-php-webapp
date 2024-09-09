@@ -1,9 +1,9 @@
 <?php
 
-namespace Control;
+namespace Sample;
 use General\Control\Page;
-use General\Widgets\Container\Panel;
 use General\Widgets\Container\HBox;
+use General\Widgets\Container\Panel;
 
 
 class ExemploBoxControl extends Page

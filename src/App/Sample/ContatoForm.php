@@ -1,13 +1,12 @@
 <?php
 
-namespace Control;
-use General\Control\Page;
+namespace Sample;
 use General\Control\Action;
+use General\Control\Page;
 use General\Widgets\Dialog\Message;
-use General\Widgets\Forms\Button;
-use General\Widgets\Forms\Form;
-use General\Widgets\Forms\Entry;
 use General\Widgets\Forms\Combo;
+use General\Widgets\Forms\Entry;
+use General\Widgets\Forms\Form;
 use General\Widgets\Forms\Text;
 use General\Widgets\Wrapper\FormWrapper;
 

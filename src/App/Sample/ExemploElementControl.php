@@ -1,9 +1,8 @@
 <?php
 
-namespace Control;
-use General\Widgets\Element;
+namespace Sample;
 use General\Control\Page;
-use Twig\Node\Expression\ParentExpression;
+use General\Widgets\Element;
 
 
 class ExemploElementControl extends  Page

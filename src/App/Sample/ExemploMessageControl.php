@@ -1,9 +1,9 @@
 <?php
 
-namespace Control;
+namespace Sample;
 
-use General\Widgets\Dialog\Message;
 use General\Control\Page;
+use General\Widgets\Dialog\Message;
 
 class ExemploMessageControl extends Page
 {

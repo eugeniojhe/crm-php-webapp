@@ -1,12 +1,11 @@
 <?php
 
-namespace Control;
+namespace Sample;
 
-use General\Database\Transaction;
-use General\Database\Repository;
 use General\Database\Criteria;
+use General\Database\Repository;
+use General\Database\Transaction;
 use Model\Pessoa;
-use General\Widgets\SimpleForm;
 
 class PessoaControl extends PageControl
 {

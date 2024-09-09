@@ -1,6 +1,6 @@
 <?php
 
-namespace Control;
+namespace Sample;
 
 class PageControl
 {

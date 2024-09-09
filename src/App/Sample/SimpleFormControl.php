@@ -1,6 +1,6 @@
 <?php
 
-namespace Control;
+namespace Sample;
 use General\Widgets\SimpleForm;
 
 class SimpleFormControl extends PageControl

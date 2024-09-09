@@ -1,6 +1,6 @@
 <?php
 
-namespace Control;
+namespace Sample;
 
 use General\Control\Action;
 use General\Control\Page;

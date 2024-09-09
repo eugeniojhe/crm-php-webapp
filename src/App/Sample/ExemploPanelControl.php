@@ -1,6 +1,6 @@
 <?php
 
-namespace Control;
+namespace Sample;
 
 use General\Control\Page;
 use General\Widgets\Container\Panel;
