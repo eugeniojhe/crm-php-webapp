@@ -70,7 +70,6 @@ class Form
             $value = isset($_POST[$name]) ? $_POST[$name] : null;
             $object->$name = $value;
         }
-
          return $object;
     }
 

@@ -15,9 +15,11 @@ class Panel extends Element
     public function __construct($panelTitle  = null)
     {
         parent::__construct('div');
-
-        $this->class = 'panel panel-default';
+        $panelTitle = 'Pessoas';
+        $panel = new Element('div');
+        $panel->clas = 'panel panel-success';
         if ($panelTitle){
+
             $head = new Element('div');
             $head->class = 'panel-heading';
 
@@ -29,15 +31,20 @@ class Panel extends Element
 
             $title->add($label);
             $head->add($title);
-            parent::add($head);
+            $panel->add($head);
         }
 
         $this->body = new Element('div');
         $this->body->class = 'panel-body';
-        Parent::add($this->body);
 
         $this->footer = new Element('div');
         $this->footer->class = 'panel-footer';
+
+        $panel->add($this->body);
+        Parent::add($panel);
+
+        $this->footer = new Element('div');
+        $this->footer->{'class'} = 'panel-footer';
     }
 
     public function add($content)
@@ -48,6 +55,6 @@ class Panel extends Element
     public function addFooter($footer)
     {
         $this->footer->add($footer);
-        Parent::add($this->footer);
+        return $this->footer;
     }
 }

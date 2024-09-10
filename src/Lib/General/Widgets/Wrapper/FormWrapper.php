@@ -61,7 +61,7 @@ class FormWrapper
 
         $panel = new Panel($this->decorator->getTitle());
         $panel->add($element);
-        $panel->addFooter($footer);
+        $panel->add($panel->addFooter($footer));
         $panel->show();
     }
 }

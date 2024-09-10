@@ -73,18 +73,20 @@ abstract class Record
         return false;
     }
 
+    public static function all()
+    {
+        $class = get_called_class();
+        $calledClass = new $class;
+
+        $rep = new Repository($calledClass);
+        return $rep->load(new Criteria());
+    }
      public static function find($id)
      {
          $class = get_called_class();
          $acClass = new $class;
          return $acClass->load($id);
      }
-//     public static function find($id)
-//     {
-//         $className = get_called_class();
-//         $obj = new $className($id);
-//         return $obj->load($id);
-//     }
     public function delete($id = null)
     {
         $id = $id ? $id : $this->data['id'];
@@ -98,10 +100,31 @@ abstract class Record
         }
     }
 
+
+    public function filterData($tableName, $data):array
+    {
+        $fields = [];
+        $sql = "DESCRIBE $tableName";
+        if ($conn = Transaction::get()) {
+            $result = $conn->query($sql);
+            if ($result) {
+                $fields = [];
+                while ($row = $result->fetch(\PDO::FETCH_ASSOC)) {
+                    $fields[] = $row['Field'];
+                }
+            }
+        }
+
+        return array_intersect_key($this->data, array_flip($fields));
+    }
+
     public function store()
     {
+        $filteredData = $this->filterData($this->getEntity(), $this->data);
+        $prepared = $this->prepare($filteredData);
+
         if (empty($this->data['id']) OR (!$this->load($this->data['id']))) {
-            $prepared = $this->prepare($this->data);
+
             if (empty($prepared['id'])) {
                 $this->data['id'] = $this->getLastId() + 1;
                 $prepared['id'] =  $this->data['id'];
@@ -111,7 +134,6 @@ abstract class Record
                 ' VALUES ' .
                 '(' . implode(', ', array_values($prepared)) . ')';
         } else {
-            $prepared = $this->prepare($this->data);
             $set = [];
             foreach ($prepared as $column => $value) {
                 $set[] = "$column = $value";
