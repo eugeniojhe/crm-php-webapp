@@ -1,6 +1,5 @@
 <?php
 
-
 DEFINE('WORKING_DIR', getenv('WORKING_DIR'));
 DEFINE('CLASS_LOADER', getenv('CLASS_LOADER'));
 DEFINE('APP_LOADER', getenv('APP_LOADER'));
@@ -8,17 +7,16 @@ DEFINE('AUTO_LOADER', getenv('AUTO_LOADER'));
 
 require_once CLASS_LOADER; //General loaders - Core project - This can be used for other projects that use the same structure
 require_once APP_LOADER; //Looders  of app
-$t = require_once AUTO_LOADER; //AutoLoader for Doteven
+$composerAutoLoader = require_once AUTO_LOADER; //AutoLoader for Doteven
 
 use General\Core\ClassLoader;
 use General\Core\AppLoader;
 
-
-$t->register();
-
+$composerAutoLoader->register();
 
 $dotenv = Dotenv\Dotenv::createImmutable(WORKING_DIR);
 $dotenv->load();
+
 function handleRequest()
 {
     if (isset($_GET['controller'])) {
