@@ -1,0 +1,18 @@
+INSERT INTO unidades (sigla, nome)  VALUES('cm','Centímetro');
+INSERT INTO unidades (sigla, nome)  VALUES('m','Metro');
+INSERT INTO unidades (sigla, nome)  VALUES('cm2','Centímetro quadrado');
+INSERT INTO unidades (sigla, nome)  VALUES('m2','Metro quadrado');
+INSERT INTO unidades (sigla, nome)  VALUES('cm3','Centímetro cúbico');
+INSERT INTO unidades (sigla, nome)  VALUES('m3','Metro cúbico');
+INSERT INTO unidades (sigla, nome)  VALUES('Kg','Kilograma');
+INSERT INTO unidades (sigla, nome)  VALUES('Gr','Grama');
+INSERT INTO unidades (sigla, nome)  VALUES('L','Litro');
+INSERT INTO unidades (sigla, nome)  VALUES('PC','Peça');
+INSERT INTO unidades (sigla, nome)  VALUES('PCT','Pacote');
+INSERT INTO unidades (sigla, nome)  VALUES('CX','Caixa');
+INSERT INTO unidades (sigla, nome)  VALUES('SAC','Saco');
+INSERT INTO unidades (sigla, nome)  VALUES('TON','Tonelada');
+INSERT INTO unidades (sigla, nome)  VALUES('KIT','Kit');
+INSERT INTO unidades (sigla, nome)  VALUES('GL','Galão');
+INSERT INTO unidades (sigla, nome)  VALUES('FD','Fardo');
+INSERT INTO unidades (sigla, nome)  VALUES('BL','Bloco');

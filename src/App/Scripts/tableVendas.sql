@@ -1,0 +1,12 @@
+INSERT INTO vendas (id_cliente,  data_venda,  valor_total, desconto, acrescimo, valor_final, observacoes)   VALUES(1,'2018-01-10',800.0,40.0,NULL,360.0,NULL);
+INSERT INTO vendas (id_cliente,  data_venda,  valor_total, desconto, acrescimo, valor_final, observacoes)   VALUES(2,'2018-02-10',720.0,36.0,NULL,324.0,NULL);
+INSERT INTO vendas (id_cliente,  data_venda,  valor_total, desconto, acrescimo, valor_final, observacoes)   VALUES(3,'2018-03-10',700.0,35.0,NULL,315.0,NULL);
+INSERT INTO vendas (id_cliente,  data_venda,  valor_total, desconto, acrescimo, valor_final, observacoes)   VALUES(4,'2018-04-10',800.0,40.0,NULL,360.0,NULL);
+INSERT INTO vendas (id_cliente,  data_venda,  valor_total, desconto, acrescimo, valor_final, observacoes)   VALUES(5,'2018-05-10',1800.0,90.0,NULL,810.0,NULL);
+INSERT INTO vendas (id_cliente,  data_venda,  valor_total, desconto, acrescimo, valor_final, observacoes)   VALUES(6,'2018-06-10',1400.0,70.0,NULL,630.0,NULL);
+INSERT INTO vendas (id_cliente,  data_venda,  valor_total, desconto, acrescimo, valor_final, observacoes)   VALUES(7,'2018-07-10',1600.0,80.0,NULL,720.0,NULL);
+INSERT INTO vendas (id_cliente,  data_venda,  valor_total, desconto, acrescimo, valor_final, observacoes)   VALUES(8,'2018-08-10',1200.0,60.0,NULL,540.0,NULL);
+INSERT INTO vendas (id_cliente,  data_venda,  valor_total, desconto, acrescimo, valor_final, observacoes)   VALUES(9,'2018-09-10',2800.0,140.0,NULL,1260.0,NULL);
+INSERT INTO vendas (id_cliente,  data_venda,  valor_total, desconto, acrescimo, valor_final, observacoes)   VALUES(10,'2018-10-10',1600.0,80.0,NULL,720.0,NULL);
+INSERT INTO vendas (id_cliente,  data_venda,  valor_total, desconto, acrescimo, valor_final, observacoes)   VALUES(11,'2018-11-10',2400.0,120.0,NULL,1080.0,NULL);
+INSERT INTO vendas (id_cliente,  data_venda,  valor_total, desconto, acrescimo, valor_final, observacoes)   VALUES(12,'2018-12-10',2400.0,100.0,NULL,1100.0,NULL);

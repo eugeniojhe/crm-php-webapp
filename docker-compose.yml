@@ -1,0 +1,77 @@
+version: "3.3"
+services:
+  app:
+    build:
+      context: ./.docker/services/app
+      dockerfile: app.dockerfile
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    container_name: crm-php-service-container
+    working_dir: /var/www
+    volumes:
+      - ./src:/var/www
+      - ./.env:/var/www/.env
+#      - ./docker-compose.yml:/var/www/docker-compose.yml
+#    ports:
+#      - "9003:9003"  # Expose Xdebug port
+    user: 1001:1001
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASSWORD: root
+      DB_NAME: php_crm
+      WORKING_DIR: /var/www
+      CLASS_LOADER: /var/www/Lib/General/Core/ClassLoader.php
+      APP_LOADER: /var/www/Lib/General/Core/AppLoader.php
+      AUTO_LOADER: /var/www/vendor/autoload.php
+      PHP_IDE_CONFIG: "serverName=crm-php-webapp"
+      XDEBUG_CONFIG: "client_host=host.docker.internal"
+#      IDE_PHPUNIT_PHPUNIT_PHAR: /var/www/vendor/bin/phpunit
+    depends_on:
+      - db
+      - redis
+  web:
+    build:
+      context: ./.docker/services/web
+      dockerfile: web.dockerfile
+    container_name: crm-php-web-container
+    working_dir: /var/www
+    volumes:
+      - ./src:/var/www
+    ports:
+      - "80:80"
+    depends_on:
+      - app
+  db:
+    image: mysql:8.0.25
+    container_name: crm-php-mysql-container
+    volumes:
+      - ./.docker/volumes/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: php_crm
+      DB_HOST: db
+      DB_USER: root
+      DB_PASSWORD: root
+      DB_NAME: php_crm
+      PHP_IDE_CONFIG: "serverName=crm-php-webapp"
+      XDEBUG_CONFIG: "client_host=host.docker.internal"
+    ports:
+      - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password
+
+  redis:
+    image: redis:alpine
+    container_name: crm-php-redis-container
+    volumes:
+      - ./.docker/volumes/redis:/data
+    ports:
+      - "6379:6379"
+  # Mailing Server
+
+
+#  nginx:
+#    image: nginx:latest
+#    container_name: nginx-container
+#    ports:
+#      - 80:80

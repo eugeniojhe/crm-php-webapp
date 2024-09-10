@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fetch API Example</title>
+  <script>
+    async function fetchData() {
+      // URL construction
+      const baseURL = "http://localhost/rest.php"; // Change 'web' to 'localhost'
+      const params = new URLSearchParams({
+        class: 'PessoaService',
+        method: 'getData',
+        id: 1
+      });
+
+      const url = `${baseURL}?${params.toString()}`;
+      console.log(url); // Debug line to check the URL
+
+      try {
+        // Fetch API request
+        const response = await fetch(url);
+
+        // Check if the response is ok (status in the range 200-299)
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        // Parse the JSON response
+        const data = await response.json();
+        console.log(data);
+
+        // Handle the data (e.g., display it on the page)
+        document.getElementById('output').textContent = JSON.stringify(data, null, 2);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        document.getElementById('output').textContent = `Error: ${error.message}`;
+      }
+    }
+
+    // Fetch data when the page loads
+    window.onload = fetchData;
+  </script>
+</head>
+<body>
+<h1>Fetch API Example</h1>
+<pre id="output"></pre>
+</body>
+</html>
