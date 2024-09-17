@@ -4,6 +4,7 @@ namespace Control;
 
 use General\Control\Action;
 use General\Control\Page;
+use General\Traits\SaveTrait;
 use General\Widgets\Container\Panel;
 use General\Widgets\Element;
 use General\Widgets\Forms\Button;
@@ -21,6 +22,14 @@ use General\Widgets\Dialog\Message;
 class PessoasForm extends Page
 {
         private $form;
+        private $class;
+
+        private $dados;
+        private $activeRecord;
+
+        use SaveTrait {
+            onSave as onSaveTrait;
+        }
 
         public function __construct()
         {
@@ -74,28 +83,16 @@ class PessoasForm extends Page
 
         public function onSave()
         {
-            try {
-                Transaction::open();
-
-                $dados = $this->form->getData();
-                $this->form->setData($dados);
-                $pessoa = New Pessoa();
-                $pessoa->fromArray( (array) $dados);
-                $pessoa->store();
-
-                $pessoa->delGrupos();
-                if (is_array($dados->ids_group)) {
-                    foreach ($dados->ids_group as $id_grupo)
-                    {
-                        $pessoa->addGrupo( new Grupo($id_grupo) );
-                    }
+             $this->activeRecord = "Model\Pessoa";
+             $this->onSaveTrait();
+             $this->class->delGrupos();
+             if (is_array($this->dados->ids_group)) {
+                foreach ($this->dados->ids_group as $id_grupo)
+                {
+                    $this->class->addGrupo( new Grupo($id_grupo) );
                 }
-
-                Transaction::close();
-            } catch (\Exception $e) {
-                new Message('Error', $e->getMessage());
-                Transaction::rollback();
             }
+            Transaction::close();
         }
 
 

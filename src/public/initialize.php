@@ -53,6 +53,7 @@ function initializeClassLoader()
     $loader->addNamespace('General\Control', 'Lib/General/Control');
     $loader->addNamespace('General\Core', 'Lib/General/core');
     $loader->addNamespace('General\Cache', 'Lib/General/Cache');
+    $loader->addNamespace('General\Traits', 'Lib/General/Traits');
     $loader->register();
 }
 
