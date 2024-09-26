@@ -26,7 +26,7 @@ class Pessoa extends Record
         if (is_null($this->cidade)) {
             $this->cidade = new Cidade($this->cidade_id);
         }
-        return $this->cidade;
+        return $this->cidade->nome;
     }
 
     public function addGrupo(Grupo $grupo)
@@ -41,8 +41,7 @@ class Pessoa extends Record
     {
         $criteria = new Criteria();
         $criteria->add('id_pessoa', '=' , $this->id);
-        $pg = new PessoaGrupo();
-        $repo = new Repository($pg);
+        $repo = new Repository("Model\PessoaGrupo");
         $repo->delete($criteria);
     }
 

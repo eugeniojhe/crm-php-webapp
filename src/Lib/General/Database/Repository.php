@@ -1,20 +1,18 @@
 <?php
 
 namespace General\Database;
-use Model\Produto;
-use Model\Funcionario;
 
 class Repository
 {
     private $activeRecord;
     public function __construct($class)
     {
-       $this->activeRecord = get_class($class);
+        $this->activeRecord = $class;
 
     }
     public function load(Criteria $criteria)
     {
-        $sql = "SELECT * FROM ".$this->activeRecord::TABLENAME;
+        $sql = "SELECT * FROM " . constant($this->activeRecord.'::TABLENAME');
 
         Transaction::log($sql);
         $results = [];
@@ -54,8 +52,14 @@ class Repository
         return $results;
     }
 
+    public static function __callStatic(string $name, array $arguments)
+    {
+        // TODO: Implement __callStatic() method.
+    }
+
     public function delete(Criteria $criteria)
     {
+
         $sql = "DELETE FROM " . constant($this->activeRecord . '::TABLENAME');
 
 

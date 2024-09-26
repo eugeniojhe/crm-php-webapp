@@ -2,17 +2,17 @@
 // http://host.docker.internal/rest.php?class=PessoaService&method=GetData&id=1
 
 //$location = "http://localhost/rest.php";
-//$location = "http://host.docker.internal/rest.php";
-$location = "http://web/rest.php";
+$location = "http://host.docker.internal/rest.php";
+//$location = "http://localhost/rest.php";
 $parameters['class'] = "PessoaService";
 $parameters['method'] = "getData";
-$parameters['id'] = 3;
+$parameters['id'] = $_POST['person_id'];
 
-echo "<div class='panel panel-default' style='margin: 40px'>\n";
-
-echo "</div>";
 
 $url = $location . "?" . http_build_query($parameters);
+//$response = file_get_contents($url);
+//print $response;
+
 // Initialize cURL
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $url);
@@ -32,6 +32,8 @@ if ($response === false) {
 curl_close($ch);
 
 // Decode the JSON response
+
 $responseData = json_decode($response, true); // true for associative array
 var_dump($responseData);
+
 

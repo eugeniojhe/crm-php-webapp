@@ -17,20 +17,55 @@ abstract class Record
 
     public function __set($property, $value)
     {
-
-        if ($value === null) {
-            unset($this->data[$property]);
-        } else {
-            $this->data[$property] = $value;
+        // verifica se existe método set_<propriedade>
+        if (method_exists($this, 'set_'.$property))
+        {
+            // executa o método set_<propriedade>
+            call_user_func(array($this, 'set_'.$property), $value);
         }
+        else
+        {
+            if ($value === NULL)
+            {
+                unset($this->data[$property]);
+            }
+            else
+            {
+                // atribui o valor da propriedade
+                $this->data[$property] = $value;
+            }
+        }
+
+//        if ($value === null) {
+//            unset($this->data[$property]);
+//        } else {
+//            $this->data[$property] = $value;
+//        }
     }
 
     public function __get($property)
     {
-        if (isset($this->data[$property])) {
-            return $this->data[$property];
+
+        // verifica se existe método get_<propriedade>
+        if (method_exists($this, 'get_'.$property))
+        {
+            // executa o método get_<propriedade>
+            return call_user_func(array($this, 'get_'.$property));
         }
-        return null;
+        else
+        {
+            // retorna o valor da propriedade
+            if (isset($this->data[$property]))
+            {
+                return $this->data[$property];
+            }
+        }
+
+
+//        if (isset($this->data[$property])) {
+//            return $this->data[$property];
+//        }
+//        return null;
     }
 
     public function __isset($property) {
@@ -76,7 +111,7 @@ abstract class Record
     public static function all()
     {
         $class = get_called_class();
-        $calledClass = new $class;
+        $calledClass = $class;
 
         $rep = new Repository($calledClass);
         return $rep->load(new Criteria());

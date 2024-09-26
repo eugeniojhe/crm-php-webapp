@@ -1,8 +1,7 @@
 <?php
 
 namespace Model;
-
-use modulo5\classes\api\Record;
+use General\Database\Record;
 
 class Produto extends Record
 {
