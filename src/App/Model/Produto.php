@@ -5,5 +5,5 @@ use General\Database\Record;
 
 class Produto extends Record
 {
-    const TABLENAME = "Products";
+    const TABLENAME = "produtos";
 }

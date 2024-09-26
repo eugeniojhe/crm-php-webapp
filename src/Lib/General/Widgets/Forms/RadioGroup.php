@@ -27,8 +27,8 @@ class RadioGroup extends Field implements FormElementInterface
             foreach ($this->items as $index => $label)
             {
                 $button = new RadioButton($this->name);
-                $button->setLabel($index);
-                if ($this->value === $index)
+                $button->setValue($index);
+                if ($this->value == $index)
                 {
                     $button->setProperty('checked', 1);
                 }

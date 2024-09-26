@@ -15,9 +15,14 @@ class Page extends  Element
         if ($_GET){
             $method = isset($_GET['method']) ?  trim($_GET['method'], "\x00..\x1; ") : 'index'; ;
 
-            if (method_exists($this, $method)) {
-                call_user_func([$this, $method], $_GET);
+            if (isset($_GET['method'])) {
+                if (method_exists($this, $method)) {
+                    call_user_func([$this, $method], $_GET);
+                } else {
+                    throw new \Exception("Method {$method} does not exist");
+                }
             }
+
         }
         Parent::show();
     }

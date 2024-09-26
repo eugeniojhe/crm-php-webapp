@@ -70,7 +70,7 @@ class Repository
             }
             $conn = Transaction::get();
             if (!$conn) {
-                throw new  Exception('Não existe conexão com o BD');
+                throw new  \Exception('Delete method - Não existe conexão com o BD');
             }
 
             return $conn->exec($sql);

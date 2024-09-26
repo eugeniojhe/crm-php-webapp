@@ -18,7 +18,7 @@ trait SaveTrait
             $this->class->fromArray( (array) $this->dados);
             $this->class->store();
 
-//            Transaction::close();
+            Transaction::close();
         } catch (\Exception $e) {
             new Message('Error', $e->getMessage());
             Transaction::rollback();

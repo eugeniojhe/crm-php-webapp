@@ -5,7 +5,6 @@ use General\Widgets\Element;
 
 class Entry extends Field
 {
-    protected $properties;
 
     public function show()
     {

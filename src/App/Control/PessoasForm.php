@@ -4,6 +4,7 @@ namespace Control;
 
 use General\Control\Action;
 use General\Control\Page;
+use General\Traits\EditTrait;
 use General\Traits\SaveTrait;
 use General\Widgets\Container\Panel;
 use General\Widgets\Element;
@@ -29,6 +30,9 @@ class PessoasForm extends Page
 
         use SaveTrait {
             onSave as onSaveTrait;
+        }
+        use EditTrait {
+            onEdit as onEditTrait;
         }
 
         public function __construct()
@@ -77,7 +81,6 @@ class PessoasForm extends Page
             $codigo->setEditable(false);
             $this->form->addAction('Salvar', new Action(array($this, 'onSave'), true));
 
-
             parent::add($this->form);
         }
 
@@ -85,6 +88,9 @@ class PessoasForm extends Page
         {
              $this->activeRecord = "Model\Pessoa";
              $this->onSaveTrait();
+
+             Transaction::open();
+
              $this->class->delGrupos();
              if (is_array($this->dados->ids_group)) {
                 foreach ($this->dados->ids_group as $id_grupo)
@@ -93,6 +99,13 @@ class PessoasForm extends Page
                 }
             }
             Transaction::close();
+        }
+
+        public function onEdit($param)
+        {
+            $this->activeRecord = "Model\Pessoa";
+            $this->onEditTrait($param);
+
         }
 
 
