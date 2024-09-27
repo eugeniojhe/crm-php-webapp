@@ -24,6 +24,7 @@ services:
       CLASS_LOADER: /var/www/Lib/General/Core/ClassLoader.php
       APP_LOADER: /var/www/Lib/General/Core/AppLoader.php
       AUTO_LOADER: /var/www/vendor/autoload.php
+      MAIN_TEMPLATE: /var/www/App/Resources/Templates/main.html
       PHP_IDE_CONFIG: "serverName=crm-php-webapp"
       XDEBUG_CONFIG: "client_host=host.docker.internal"
 #      IDE_PHPUNIT_PHPUNIT_PHAR: /var/www/vendor/bin/phpunit
