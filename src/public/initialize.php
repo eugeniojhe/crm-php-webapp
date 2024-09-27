@@ -5,6 +5,7 @@ DEFINE('CLASS_LOADER', getenv('CLASS_LOADER'));
 DEFINE('APP_LOADER', getenv('APP_LOADER'));
 DEFINE('AUTO_LOADER', getenv('AUTO_LOADER'));
 
+
 require_once CLASS_LOADER; //General loaders - Core project - This can be used for other projects that use the same structure
 require_once APP_LOADER; //Looders  of app
 $composerAutoLoader = require_once AUTO_LOADER; //AutoLoader for Doteven
@@ -17,8 +18,12 @@ $composerAutoLoader->register();
 $dotenv = Dotenv\Dotenv::createImmutable(WORKING_DIR);
 $dotenv->load();
 
-function handleRequest()
+function handleRequest():void
 {
+    $file = getenv('MAIN_TEMPLATE');
+    $template = file_get_contents($file);
+    $content = '';
+    $pageControl = 'Home';
     if (isset($_GET['controller'])) {
 
         try {
@@ -26,26 +31,29 @@ function handleRequest()
                 'controller',
                 FILTER_SANITIZE_SPECIAL_CHARS));
             if (class_exists($pageControl)) {
-                $pageControl = new $pageControl;
-                $pageControl->show();
+                ob_start();
+                $page = new $pageControl();
+                $page->show();
+                $content = ob_get_clean();
+
 
             } else {
-                echo "O Controller {$pageControl} do not exist ";
-                die();
+                $content =  "O Controller <b>{$pageControl}</b> do not exist ";
             }
 
         } catch (\Exception $e) {
-            print $e->getMessage();
+            $content =  $e->getMessage();
         }
 
     } else {
-        echo "Controle  was not informed on Url ";
-        die();
+        $content =  "Controller <b>{$pageControl}</b> do not exist ";
     }
-
+   $output = str_replace('{content}', $content, $template);
+   $output = str_replace('{class}',   $pageControl, $output);
+   echo $output;
 }
 
-function initializeClassLoader()
+function initializeClassLoader():void
 {
     $loader = new ClassLoader();
     $loader->addNamespace('General\Database', 'Lib/General/Database');
@@ -57,7 +65,7 @@ function initializeClassLoader()
     $loader->register();
 }
 
-function initializeAppLoader()
+function initializeAppLoader():void
 {
     $appLoader = new AppLoader();
     $appLoader->register();
