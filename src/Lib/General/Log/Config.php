@@ -6,7 +6,7 @@ class Config
 {
     private static $config;
 
-    public static function loadConfig()
+    public static function loadConfig():void
     {
          $environment  = $_ENV['APP_ENV'] ?:'development';
          switch ($environment) {
@@ -32,7 +32,7 @@ class Config
 
     }
 
-    public static function getConfig()
+    public static function getConfig():string
     {
         self::loadConfig();
         return self::$config;
