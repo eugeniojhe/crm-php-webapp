@@ -12,13 +12,19 @@ trait SaveTrait
         try {
             Transaction::open();
 
-            $this->dados = $this->form->getData();
-            $this->form->setData($this->dados);
-            $this->class = new $this->activeRecord;
-            $this->class->fromArray( (array) $this->dados);
-            $this->class->store();
+            $class = $this->activeRecord;
+            $dados = $this->form->getData();
 
-            Transaction::close();
+
+            $object = new $class; // instancia objeto
+            $object->fromArray( (array) $dados); // carrega os dados
+            $object->store(); // armazena o objeto
+
+            $dados->id = $object->id;
+            $this->form->setData($dados);
+
+            Transaction::close(); // finaliza a transação
+            new Message('info', 'Dados armazenados com sucesso');
         } catch (\Exception $e) {
             new Message('Error', $e->getMessage());
             Transaction::rollback();
