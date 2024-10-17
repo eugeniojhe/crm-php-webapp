@@ -24,7 +24,7 @@ class Pessoa extends Record
     public function get_nome_cidade()
     {
         if (is_null($this->cidade)) {
-            $this->cidade = new Cidade($this->cidade_id);
+            $this->cidade = new Cidade($this->id_cidade);
         }
         return $this->cidade->nome;
     }
