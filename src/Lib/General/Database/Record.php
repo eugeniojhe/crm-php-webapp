@@ -1,6 +1,9 @@
 <?php
 
 namespace General\Database;
+use PHPMailer\PHPMailer\Exception;
+use Model\Cidade;
+
 abstract class Record
 {
     private $data;
@@ -10,7 +13,7 @@ abstract class Record
         if ($id) {
             $object = $this->load($id);
             if ($object) {
-                $this->fromArray( $object->toArray() );
+               $this->fromArray( $object->toArray() );
             }
         }
     }
@@ -18,6 +21,7 @@ abstract class Record
     public function __set($property, $value)
     {
         // verifica se existe método set_<propriedade>
+
         if (method_exists($this, 'set_'.$property))
         {
             // executa o método set_<propriedade>
@@ -31,22 +35,14 @@ abstract class Record
             }
             else
             {
-                // atribui o valor da propriedade
                 $this->data[$property] = $value;
             }
         }
 
-//        if ($value === null) {
-//            unset($this->data[$property]);
-//        } else {
-//            $this->data[$property] = $value;
-//        }
     }
 
     public function __get($property)
     {
-
-        // verifica se existe método get_<propriedade>
         if (method_exists($this, 'get_'.$property))
         {
             // executa o método get_<propriedade>
@@ -61,11 +57,6 @@ abstract class Record
             }
         }
 
-
-//        if (isset($this->data[$property])) {
-//            return $this->data[$property];
-//        }
-//        return null;
     }
 
     public function __isset($property) {
@@ -96,11 +87,14 @@ abstract class Record
     public function load($id)
     {
         $sql = "SELECT * FROM {$this->getEntity()} WHERE id = ". (int) $id;
+
         if ($conn = Transaction::get()) {
            Transaction::log($sql);
             $result =  $conn->query($sql);
             if ($result) {
-                return $result->fetchObject( get_class($this));
+                return  $result->fetchObject( get_class($this));
+            } else {
+                 return null;
             }
         } else {
             throw new Exception('Não existe conexão ativa');
@@ -108,27 +102,31 @@ abstract class Record
         return false;
     }
 
-    public static function all()
+    public static function all():array
     {
         $class = get_called_class();
         $calledClass = $class;
-
         $rep = new Repository($calledClass);
-        return $rep->load(new Criteria());
+        return  $rep->load(new Criteria());
     }
      public static function find($id)
      {
          $class = get_called_class();
-         $acClass = new $class;
-         return $acClass->load($id);
+         if (class_exists($class)) {
+             $acClass = new $class;
+             return $acClass->load($id);
+         }
+         else {
+             throw new Exception('Class não existe');
+         }
      }
     public function delete($id = null)
     {
         $id = $id ? $id : $this->data['id'];
 
         $sql = "DELETE FROM {$this->getEntity()} WHERE id = ". (int) $id;
-        if ($conn = \Transaction::get()) {
-            \Transaction::log($sql);
+        if ($conn = Transaction::get()) {
+            Transaction::log($sql);
             $result = $conn->exec($sql);
         } else  {
             throw new Exception('Não existe conexão ativa');
@@ -159,7 +157,6 @@ abstract class Record
         $prepared = $this->prepare($filteredData);
 
         if (empty($this->data['id']) OR (!$this->load($this->data['id']))) {
-
             if (empty($prepared['id'])) {
                 $this->data['id'] = $this->getLastId() + 1;
                 $prepared['id'] =  $this->data['id'];

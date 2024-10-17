@@ -23,11 +23,15 @@ class Repository
                 $sql .= " WHERE ".$expression;
             }
             $order = $criteria->getProperty('order');
+            $direction = $criteria->getProperty('direction');
             $limit = $criteria->getProperty('limit');
             $offset = $criteria->getProperty('offset');
 
             if ($order) {
                 $sql .= ' ORDER BY '.$order;
+                if ($direction) {
+                    $sql .= ' '.$direction;
+                }
             }
             if($limit) {
                 $sql .= ' LIMIT '.$limit;
