@@ -39,9 +39,11 @@ class DatagridWrapper
         $element->add($tbody);
 
         $items = $this->decorated->getItems();
-        foreach ($items as $item)
-        {
-            $this->createItem($tbody, $item);
+        if ($items) {
+            foreach ($items as $item)
+            {
+                $this->createItem($tbody, $item);
+            }
         }
 
         $panel = new Panel;
@@ -105,7 +107,7 @@ class DatagridWrapper
                 $key = $item->$field;
 
                 $link = new Element('a');
-                $link->href = "{$url}$key={$key}&{$field}={$key}";
+                $link->href = "{$url}&{$field}={$key}";
 
                 if ($image) {
                     $i = new Element('img');
