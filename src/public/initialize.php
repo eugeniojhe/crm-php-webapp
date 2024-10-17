@@ -20,7 +20,7 @@ $dotenv->load();
 
 function handleRequest():void
 {
-    $file = getenv('MAIN_TEMPLATE');
+    $file = $_ENV['MAIN_TEMPLATE'];
     $template = file_get_contents($file);
     $content = '';
     $pageControl = 'Home';
